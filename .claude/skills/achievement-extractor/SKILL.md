@@ -1,5 +1,7 @@
 ---
 name: achievement-extractor
+version: 1.0.0
+updated: 2026-08-03
 description: Transforme des expériences brutes en réalisations vérifiables, orientées impact, avec méthode STAR et métriques explicites. Utiliser quand l’utilisateur veut convertir des notes de projet en bullets de CV, quantifier des résultats, formuler des accomplissements ou préparer des exemples STAR pour un entretien.
 ---
 

@@ -18,6 +18,8 @@ ROOT = Path(__file__).resolve().parents[1]
 SKILLS_DIR = ROOT / ".claude" / "skills"
 
 NAME_PATTERN = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
+VERSION_PATTERN = re.compile(r"^\d+\.\d+\.\d+$")
+UPDATED_PATTERN = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 NAME_MAX_LENGTH = 64
 DESCRIPTION_MIN_LENGTH = 40
 DESCRIPTION_MAX_LENGTH = 1024
@@ -34,6 +36,7 @@ REQUIRED_SECTIONS = [
 
 RECOMMENDED_FILES = [
     Path("references") / "quality-checklist.md",
+    Path("references") / "example-output.md",
     Path("templates") / "prompt-template.md",
 ]
 
@@ -142,6 +145,18 @@ def check_skill(skill_dir: Path, report: Report) -> str | None:
                 f"{rel}/SKILL.md : description sans condition de déclenchement, "
                 "ajouter une formulation du type 'Utiliser quand ...'"
             )
+
+    version = fields.get("version")
+    if not version:
+        report.warn(f"{rel}/SKILL.md : champ version absent, ajouter version: 1.0.0")
+    elif not VERSION_PATTERN.match(version):
+        report.error(f"{rel}/SKILL.md : version '{version}' non conforme au format x.y.z")
+
+    updated = fields.get("updated")
+    if not updated:
+        report.warn(f"{rel}/SKILL.md : champ updated absent, ajouter updated: AAAA-MM-JJ")
+    elif not UPDATED_PATTERN.match(updated):
+        report.error(f"{rel}/SKILL.md : updated '{updated}' non conforme au format AAAA-MM-JJ")
 
     for section in REQUIRED_SECTIONS:
         if section not in text:

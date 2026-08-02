@@ -7,27 +7,18 @@ Ce dépôt fournit une structure complète de skills Claude pour améliorer un C
 ```text
 .claude/
   skills/
-    linkedin-profile-optimizer/
+    <nom-de-la-skill>/
       SKILL.md
       references/quality-checklist.md
+      references/example-output.md
       templates/prompt-template.md
-    executive-personal-branding/
-    achievement-extractor/
-    thought-leadership-generator/
-    architecture-storytelling-expert/
-    conference-speaker-coach/
-    cv-optimizer/
-    executive-content-writer/
-    recruiter-perspective-reviewer/
-    it-architect-career-advisor/
-    technology-watch/
-    ai-governance/
-    linkedin-profile-photo-prompt/
 docs/
 examples/
 scripts/
 .github/workflows/
 ```
+
+18 skills, chacune autonome et copiable seule.
 
 ## Installation
 
@@ -69,27 +60,63 @@ Objectif : me positionner comme Enterprise Architect / Lead Integration Architec
 Contraintes : ne rien inventer, marquer les informations manquantes.
 ```
 
+En cas de doute sur la skill à utiliser, passer par le routeur :
+
+```text
+Utilise la skill career-skills-router.
+Je veux être plus visible dans mon domaine, je ne sais pas par où commencer.
+```
+
 ## Skills incluses
 
-1. LinkedIn Profile Optimizer
-2. Executive Personal Branding
-3. Achievement Extractor
-4. Thought Leadership Generator
-5. Architecture Storytelling Expert
-6. Conference Speaker Coach
-7. CV Optimizer
-8. Executive Content Writer
-9. Recruiter Perspective Reviewer
-10. IT Architect Career Advisor
-11. Technology Watch
-12. AI Governance
-13. LinkedIn Profile Photo Prompt
+### Orientation
+
+| Skill | Usage |
+| --- | --- |
+| `career-skills-router` | Oriente vers la bonne skill et propose l’enchaînement de travail |
+
+### Candidature et recrutement
+
+| Skill | Usage |
+| --- | --- |
+| `achievement-extractor` | Transforme des notes de projet en réalisations mesurables |
+| `cv-optimizer` | Adapte un CV à un rôle cible, ATS compris |
+| `recruiter-perspective-reviewer` | Relecture du point de vue recruteur et hiring manager |
+| `interview-preparation` | Réponses, récits STAR à l’oral, objections, questions à poser |
+| `salary-negotiation` | Package, argumentaire, fourchette, scénarios de réponse |
+
+### Présence professionnelle
+
+| Skill | Usage |
+| --- | --- |
+| `linkedin-profile-optimizer` | Headline, About, expériences, compétences |
+| `linkedin-profile-photo-prompt` | Prompts de photo de profil et de bannière |
+| `executive-personal-branding` | Positionnement et proposition de valeur |
+| `networking-outreach` | Messages d’approche, relances, remerciements |
+
+### Contenu et prise de parole
+
+| Skill | Usage |
+| --- | --- |
+| `thought-leadership-generator` | Angles de contenu et calendrier éditorial |
+| `executive-content-writer` | Rédaction finale, posts, notes, messages |
+| `architecture-storytelling-expert` | Récit de projet d’architecture |
+| `call-for-papers-responder` | Candidature à un appel à conférenciers |
+| `conference-speaker-coach` | Préparation du talk, trame, biographie |
+
+### Expertise et trajectoire
+
+| Skill | Usage |
+| --- | --- |
+| `it-architect-career-advisor` | Trajectoire d’architecte, options et contreparties |
+| `technology-watch` | Note de veille, radar technologique |
+| `ai-governance` | Cadre de gouvernance IA, rôles, risques, contrôles |
 
 ## Tooling
 
 | Commande | Usage |
 | --- | --- |
-| `python scripts/validate_structure.py` | Valide frontmatter, nommage, sections, doublons et règle sans em dash |
+| `python scripts/validate_structure.py` | Valide frontmatter, nommage, version, sections, fichiers annexes et règle sans em dash |
 | `python scripts/validate_structure.py --strict` | Même validation, les avertissements deviennent bloquants |
 | `python scripts/new_skill.py <nom-kebab-case>` | Crée le squelette complet d’une nouvelle skill |
 | `bash scripts/install.sh` | Installe les skills dans `~/.claude/skills` |
@@ -99,13 +126,14 @@ La validation est rejouée automatiquement par GitHub Actions, voir `.github/wor
 
 ## Principes de conception
 
-- Chaque skill est autonome.
-- Chaque skill contient un `SKILL.md` avec frontmatter YAML.
+- Chaque skill est autonome et copiable seule, aucune dépendance vers un fichier hors de son dossier.
+- Chaque skill contient un `SKILL.md` avec frontmatter YAML, versionné.
 - La `description` décrit ce que fait la skill et les cas de déclenchement, c’est le seul élément lu par Claude pour choisir la skill.
+- Chaque skill fournit une checklist qualité spécifique à son domaine et un exemple de sortie fictif.
 - Les ressources additionnelles sont rangées dans `references/` et `templates/`.
 - Les instructions valorisent la précision, la confidentialité et l’absence d’invention.
 
-Les conventions détaillées sont dans [docs/conventions.md](docs/conventions.md).
+Les conventions détaillées sont dans [docs/conventions.md](docs/conventions.md), l’historique dans [CHANGELOG.md](CHANGELOG.md).
 
 ## Sources utilisées pour la structure
 

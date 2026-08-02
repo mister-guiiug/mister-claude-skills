@@ -1,5 +1,7 @@
 ---
 name: linkedin-profile-optimizer
+version: 1.0.0
+updated: 2026-08-03
 description: Optimise un profil LinkedIn pour clarifier le positionnement, améliorer la lisibilité recruteur et renforcer les mots-clés sans sur-promesse. Utiliser quand l’utilisateur veut réécrire son headline, sa section About, ses expériences LinkedIn, ses compétences ou améliorer sa visibilité auprès des recruteurs.
 ---
 

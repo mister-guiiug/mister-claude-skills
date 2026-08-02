@@ -1,5 +1,7 @@
 ---
 name: conference-speaker-coach
+version: 1.0.0
+updated: 2026-08-03
 description: Prépare biographies, abstracts, pitchs et trames de conférences pour valoriser une expertise IT ou architecture. Utiliser quand l’utilisateur répond à un call for papers, rédige un abstract, une bio de speaker, un titre de session ou structure le plan d’un talk.
 ---
 

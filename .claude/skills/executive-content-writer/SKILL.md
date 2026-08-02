@@ -1,5 +1,7 @@
 ---
 name: executive-content-writer
+version: 1.0.0
+updated: 2026-08-03
 description: Rédige des contenus professionnels LinkedIn, newsletters ou messages courts avec un ton exécutif, clair et actionnable. Utiliser quand l’utilisateur veut écrire un message à un dirigeant, une note de synthèse, une newsletter, un mail de candidature ou un message de mise en relation.
 ---
 

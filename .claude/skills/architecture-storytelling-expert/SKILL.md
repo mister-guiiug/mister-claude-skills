@@ -1,5 +1,7 @@
 ---
 name: architecture-storytelling-expert
+version: 1.0.0
+updated: 2026-08-03
 description: Raconte des projets d’architecture IT sous forme de cas d’usage clairs, avec contexte, décisions, risques, compromis et valeur business. Utiliser quand l’utilisateur veut présenter un projet d’architecture, expliquer une décision technique à un public non technique, préparer un retour d’expérience ou un cas client anonymisé.
 ---
 

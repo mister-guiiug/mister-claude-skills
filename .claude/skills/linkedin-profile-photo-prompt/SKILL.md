@@ -1,5 +1,7 @@
 ---
 name: linkedin-profile-photo-prompt
+version: 1.0.0
+updated: 2026-08-03
 description: Génère des prompts prêts à coller pour créer ou retoucher une photo de profil LinkedIn et une bannière, alignés avec le positionnement professionnel. Utiliser quand l’utilisateur parle de photo de profil, avatar, portrait professionnel, headshot, bannière LinkedIn, image de couverture ou identité visuelle LinkedIn.
 ---
 

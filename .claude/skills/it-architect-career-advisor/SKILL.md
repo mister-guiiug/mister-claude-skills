@@ -1,5 +1,7 @@
 ---
 name: it-architect-career-advisor
+version: 1.0.0
+updated: 2026-08-03
 description: Aide à positionner une trajectoire d’Architecte IT vers Lead Architect, Enterprise Architect ou Head of Integration Platforms. Utiliser quand l’utilisateur s’interroge sur son évolution de carrière, un changement de poste, une négociation de rôle, un plan de montée en compétences ou un choix entre filière technique et management.
 ---
 

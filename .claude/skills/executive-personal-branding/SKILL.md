@@ -1,5 +1,7 @@
 ---
 name: executive-personal-branding
+version: 1.0.0
+updated: 2026-08-03
 description: Construit un positionnement personnel senior, une proposition de valeur et des messages de marque personnelle adaptés à un public exécutif. Utiliser quand l’utilisateur cherche à clarifier son positionnement, sa différenciation, son pitch personnel ou sa stratégie de visibilité auprès de décideurs.
 ---
 

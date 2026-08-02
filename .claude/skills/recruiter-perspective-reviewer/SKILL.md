@@ -1,5 +1,7 @@
 ---
 name: recruiter-perspective-reviewer
+version: 1.0.0
+updated: 2026-08-03
 description: Évalue un profil, CV ou message du point de vue recruteur et hiring manager, en identifiant les manques et risques d’interprétation. Utiliser quand l’utilisateur demande une relecture critique, un avis recruteur, une simulation de tri de candidature ou les objections probables sur son profil.
 ---
 

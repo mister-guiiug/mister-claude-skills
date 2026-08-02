@@ -20,6 +20,8 @@ NAME_PATTERN = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 
 SKILL_TEMPLATE = """---
 name: {name}
+version: 1.0.0
+updated: {updated}
 description: {description}
 ---
 
@@ -91,6 +93,31 @@ CHECKLIST_TEMPLATE = """# Quality checklist
 - Les noms de projets internes, clients ou données sensibles sont anonymisés si diffusion publique.
 """
 
+EXAMPLE_TEMPLATE = """# Exemple de sortie
+
+Exemple fictif produit à des fins d’illustration. Les données ne correspondent à aucune personne ni organisation réelle.
+
+## Entrée fournie par l’utilisateur
+
+```text
+[à compléter]
+```
+
+## Sortie attendue
+
+[à compléter]
+
+## Contrôles appliqués
+
+| Point | Statut |
+| --- | --- |
+| [à compléter] | [à compléter] |
+
+## Points à vérifier ou compléter
+
+- [à compléter]
+"""
+
 PROMPT_TEMPLATE = """# Prompt template - {title}
 
 Utilise la skill `{name}`.
@@ -126,6 +153,11 @@ def main() -> int:
         default="[à compléter]. Utiliser quand [à compléter].",
         help="description du frontmatter, doit inclure la condition de déclenchement",
     )
+    parser.add_argument(
+        "--updated",
+        default="[à compléter]",
+        help="date de dernière mise à jour au format AAAA-MM-JJ",
+    )
     args = parser.parse_args()
 
     if not NAME_PATTERN.match(args.name):
@@ -143,11 +175,19 @@ def main() -> int:
     (skill_dir / "templates").mkdir(parents=True)
 
     (skill_dir / "SKILL.md").write_text(
-        SKILL_TEMPLATE.format(name=args.name, description=args.description, title=title),
+        SKILL_TEMPLATE.format(
+            name=args.name,
+            description=args.description,
+            title=title,
+            updated=args.updated,
+        ),
         encoding="utf-8",
     )
     (skill_dir / "references" / "quality-checklist.md").write_text(
         CHECKLIST_TEMPLATE, encoding="utf-8"
+    )
+    (skill_dir / "references" / "example-output.md").write_text(
+        EXAMPLE_TEMPLATE, encoding="utf-8"
     )
     (skill_dir / "templates" / "prompt-template.md").write_text(
         PROMPT_TEMPLATE.format(name=args.name, title=title), encoding="utf-8"

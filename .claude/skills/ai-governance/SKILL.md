@@ -1,5 +1,7 @@
 ---
 name: ai-governance
+version: 1.0.0
+updated: 2026-08-03
 description: Aide à cadrer la gouvernance IA, ses principes, rôles, risques, conformité, usages autorisés, contrôles et trajectoire d’adoption responsable. Utiliser quand l’utilisateur demande une politique d’usage de l’IA, un cadre de gouvernance IA, une grille de risques, un comité IA, une charte IA générative ou une trajectoire de conformité.
 ---
 

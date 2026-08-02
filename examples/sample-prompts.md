@@ -59,3 +59,54 @@ Générateur visé : Gemini.
 Format attendu : 3 variantes de prompt, 1 prompt de retouche, 1 prompt de bannière.
 Contraintes : ne rien inventer sur mon apparence, aucun logo, aucun décor trompeur.
 ```
+
+## Orientation
+
+```text
+Utilise la skill career-skills-router.
+Je veux préparer un changement de poste dans les 6 mois.
+J'ai un CV à jour, un profil LinkedIn négligé, et rien d'écrit sur mes projets.
+```
+
+## Préparation d’entretien
+
+```text
+Utilise la skill interview-preparation.
+Type d'entretien : hiring manager, 45 minutes, visio.
+Offre : [coller l'offre]
+Mon parcours : [coller le CV]
+Point sensible : 8 mois sans emploi entre mes deux derniers postes.
+Contraintes : ne rien inventer, réponses orales de moins de deux minutes.
+```
+
+## Négociation salariale
+
+```text
+Utilise la skill salary-negotiation.
+Situation : proposition d'embauche reçue, poste actuel tenable.
+Package actuel : [fixe, variable réel, participation, télétravail]
+Proposition reçue : [détail composant par composant]
+Benchmarks dont je dispose : aucun.
+Contraintes : n'invente aucune donnée de marché, traite le package complet.
+```
+
+## Message d’approche
+
+```text
+Utilise la skill networking-outreach.
+Destinataire : responsable plateforme dans une entreprise cible.
+Lien réel : j'ai assisté à sa présentation lors d'un meetup en mars.
+Objectif : obtenir un échange de 20 minutes, pas candidater.
+Canal : message LinkedIn.
+Contraintes : n'invente aucun point commun, une seule demande.
+```
+
+## Réponse à un appel à conférenciers
+
+```text
+Utilise la skill call-for-papers-responder.
+Événement : [nom, audience, format, niveau, langue, date limite]
+Champs du formulaire : titre 80 caractères, abstract 1200 caractères, bio 400 caractères.
+Sujet envisagé : retour d'expérience sur une migration de socle d'intégration.
+Contraintes : n'annonce que ce que je peux livrer, signale les risques de refus.
+```

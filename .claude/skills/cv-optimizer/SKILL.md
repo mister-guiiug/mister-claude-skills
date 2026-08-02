@@ -1,5 +1,7 @@
 ---
 name: cv-optimizer
+version: 1.0.0
+updated: 2026-08-03
 description: Optimise un CV pour un rôle cible en renforçant lisibilité, mots-clés, preuves d’impact et cohérence avec LinkedIn. Utiliser quand l’utilisateur veut retravailler son CV, l’adapter à une offre, passer un filtre ATS ou vérifier la cohérence entre CV et profil LinkedIn.
 ---
 

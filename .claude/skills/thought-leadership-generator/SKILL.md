@@ -1,5 +1,7 @@
 ---
 name: thought-leadership-generator
+version: 1.0.0
+updated: 2026-08-03
 description: Produit des angles de contenu LinkedIn experts, structurés, neutres et crédibles, sans auto-promotion excessive. Utiliser quand l’utilisateur cherche des idées de posts, un calendrier éditorial, un angle de publication ou veut développer sa crédibilité sur un sujet technique.
 ---
 
