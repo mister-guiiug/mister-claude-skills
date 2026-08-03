@@ -1,83 +1,99 @@
 # Exemple de sortie
 
-Exemple fictif produit à des fins d’illustration. Les attributs physiques utilisés sont ceux d’un profil fictif.
+Exemple fictif produit à des fins d’illustration. Les photos, attributs et données ne correspondent à aucune personne réelle.
 
-## Brief visuel
+## Situation
 
-- Positionnement : architecte IT, socles d’intégration, grande entreprise.
-- Audience : recruteurs, DSI, architectes.
-- Attributs visuels retenus : formalité moyenne à élevée, arrière-plan neutre, expression posée.
-- Mode de production recommandé : retouche d’une photo existante. L’utilisateur dispose d’une photo récente, c’est l’option la plus fidèle et la plus rapide.
+Trois photos candidates fournies. Positionnement, architecte IT, socles d’intégration. Audience, recruteurs et DSI. Reprise photo possible.
 
-## Prompt de retouche, option recommandée
+## 1. Tri d’admissibilité
+
+| Photo | Décision | Motif |
+| --- | --- | --- |
+| A, terrasse, t-shirt gris | Admise | Aucun motif d’écartement, tiers éloignés et supprimables |
+| B, intérieur, pull marine | Admise | Aucun motif d’écartement |
+| C, bord de mer, torse nu | **Écartée** | Torse nu, fabrication de tenue nécessaire |
+
+La photo C reste utile comme référence d’expression, elle ne sera pas retouchée.
+
+## 2. Diagnostic
+
+Photo A :
+
+| Point | Constat | Corrigeable |
+| --- | --- | --- |
+| Tenue | T-shirt gris, réelle, encolure couverte | Aucune fabrication |
+| Tiers | Trois personnes en arrière-plan éloigné | Oui |
+| Angle | Niveau des yeux | Rien à corriger |
+| Lumière | Douce et homogène sur le visage | Rien à corriger |
+| Expression | Sourire fermé naturel | Rien à corriger |
+| Résolution utile | 919 px après recadrage carré | Confortable |
+
+Photo B :
+
+| Point | Constat | Corrigeable |
+| --- | --- | --- |
+| Tenue | Pull marine, réelle et plus formelle | Aucune fabrication |
+| Angle | Contre-plongée marquée, plafond dans le cadre | **Non** |
+| Lumière | Fenêtre brûlée à gauche | Partiellement |
+| Expression | Fermée, sans sourire | **Non** |
+| Résolution utile | 919 px | Confortable |
+
+## 3. Classement
+
+| Rang | Photo | Verdict |
+| --- | --- | --- |
+| 1 | A | Retenue, aucun défaut non corrigeable |
+| 2 | B | Écartée, contre-plongée non corrigeable malgré une tenue plus formelle |
+| 3 | C | Écartée à l’admissibilité |
+
+Photo retenue, A. La tenue de B est plus adaptée à l’audience, mais un angle non corrigeable l’emporte sur un avantage vestimentaire.
+
+## 4. Mode de production et niveau de fabrication
+
+Mode retenu, conservation. Niveau 1 sur l’échelle de fabrication, retrait d’une impression sur le vêtement. Aucun risque de rendu.
+
+Option proposée, niveau 2 si l’audience impose plus de formalité, remplacement du t-shirt par un polo noir. Risque faible, l’encolure est déjà couverte.
+
+## 5. Prompt retenu, niveau 1
 
 ```text
-Edit this photograph without changing the person's face, identity, age, body shape or
-skin tone. Keep the original facial features and expression.
-Replace the background with a plain neutral grey gradient, fully clean, no text and no
-objects.
-Even out the lighting on the face, reduce harsh shadows, keep natural skin texture.
-Correct white balance, mild color correction, no beauty filter.
-Recompose to a chest-up square 1:1 crop with the face occupying about 60 percent of the
-image height.
+Edit this photograph. Preserve the person's identity exactly: same face, same facial
+features, same expression, same smile, same eyes, same eyebrows, same facial hair, same
+skin tone, same age, same body shape, same hairstyle. Do not beautify, do not slim, do not
+reshape anything.
+
+Keep the existing grey heather crew neck t-shirt exactly as it is, same color, same
+fabric, same folds. Remove any printed graphic or logo from the garment, leaving plain
+grey heather fabric.
+
+Remove all other people from the image. Remove the glass facade, the furniture and the
+horizon. Replace the entire background with a plain neutral light grey gradient, clean,
+no texture, no text, no objects.
+
+Keep the existing soft even lighting on the face. Neutralise the warm color cast. Keep
+natural skin texture and pores. No skin smoothing, no beauty filter.
+
+Recompose to a chest-up square 1:1 crop, face centered horizontally, eyes on the upper
+third line, face occupying about 60 percent of the image height.
+
 Output a high resolution photograph.
+
+Avoid: text, watermark, logo, brand, printed graphic, plastic skin, heavy skin smoothing,
+other people, background objects, visible arm, distorted features.
 ```
 
-## Variante sobre corporate
+## 6. Contrôles, par ordre de probabilité d’échec
 
-```text
-Professional corporate headshot of a 40 to 45 year old man, short brown hair,
-short trimmed beard, thin metal glasses, wearing a plain navy shirt.
-Chest-up framing, subject facing camera, direct eye contact, calm confident expression,
-subtle closed-mouth smile.
-Soft key light at 45 degrees with gentle fill, no harsh shadows.
-Plain light grey seamless studio background.
-Shot on 85mm lens, f/4, natural skin texture, realistic colors, square 1:1 crop,
-high resolution photograph.
-Avoid: text, watermark, logo, heavy skin smoothing, oversaturation, distorted hands,
-distorted glasses frames, busy background.
-```
+1. Fragments de tiers subsistant sur les bords après recadrage, surtout à droite.
+2. Dominante de couleur, vérifier qu’elle n’a pas viré au gris terne.
+3. Impression du vêtement, vérifier sa suppression complète.
+4. Lisibilité en vignette, réduire à 100 pixels de côté et vérifier que le visage reste identifiable.
 
-## Variante expert accessible
+Prévoir 1 à 2 générations pour un prompt de niveau 1.
 
-```text
-Natural professional portrait of a 40 to 45 year old man, short brown hair,
-short trimmed beard, thin metal glasses, wearing a plain navy shirt.
-Shoulders-up framing, slight three-quarter angle, eyes to camera, warm approachable
-expression, relaxed posture.
-Soft daylight from a large window, gentle contrast.
-Modern office interior fully blurred in the background, no readable text or signage.
-Shot on 85mm lens, f/2.8, shallow depth of field, natural skin texture, square 1:1 crop,
-high resolution photograph.
-Avoid: text, watermark, logo, plastic skin, artificial bokeh shapes, cluttered background.
-```
+## 7. Points à vérifier ou compléter
 
-## Bannière
-
-```text
-Abstract professional banner image, 4:1 ultra wide format, 1584x396 pixels.
-Theme: integration flows between distributed systems, minimal geometric composition,
-subtle depth, deep blue and slate grey palette.
-Left third intentionally empty and visually calm to leave room for the profile picture.
-No text, no logo, no watermark, no human figure.
-Clean modern corporate style, high resolution.
-```
-
-Le texte éventuel de la bannière est à ajouter avec un outil de mise en page, pas par génération.
-
-## Justification des choix
-
-- Formalité moyenne à élevée, l’audience inclut des recruteurs et des DSI.
-- Arrière-plan neutre plutôt que bureau, le rendu reste lisible en miniature, format sous lequel la photo est le plus souvent vue.
-- Aucun élément de décor technique, une salle serveur en arrière-plan serait un contexte que l’utilisateur ne fréquente pas.
-
-## Contraintes techniques rappelées
-
-- Format carré, affichage circulaire, ne rien placer dans les coins.
-- Vérifier les limites de taille et de format en vigueur dans l’aide LinkedIn avant publication.
-- Tester le rendu en miniature et sur fond sombre.
-
-## Points à vérifier ou compléter
-
-- Couleur réelle de la tenue portée en contexte professionnel, `[à compléter]` si différente.
-- Décision de l’utilisateur sur la mention du caractère généré si l’image n’est pas une retouche.
+- Le t-shirt gris est-il représentatif de la tenue professionnelle réelle, `[à compléter]`.
+- Fichier original haute résolution, `[à compléter]`.
+- Générateur visé, `[à compléter]`.
