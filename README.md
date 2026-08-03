@@ -89,6 +89,7 @@ Je veux être plus visible dans mon domaine, je ne sais pas par où commencer.
 
 | Skill | Usage |
 | --- | --- |
+| `linkedin-pdf-profile-audit` | Audit complet du profil à partir de son export PDF |
 | `linkedin-profile-optimizer` | Headline, About, expériences, compétences |
 | `linkedin-profile-photo-prompt` | Prompts de photo de profil et de bannière |
 | `executive-personal-branding` | Positionnement et proposition de valeur |

@@ -9,7 +9,8 @@ Passer par `career-skills-router`. Il pose deux questions au maximum, identifie 
 | Besoin | Skill |
 | --- | --- |
 | Je ne sais pas par où commencer | `career-skills-router` |
-| Profil LinkedIn | `linkedin-profile-optimizer` |
+| Audit complet du profil depuis son export PDF | `linkedin-pdf-profile-audit` |
+| Profil LinkedIn, une section précise | `linkedin-profile-optimizer` |
 | Photo de profil et bannière LinkedIn | `linkedin-profile-photo-prompt` |
 | Positionnement senior | `executive-personal-branding` |
 | Réalisations et preuves d’impact | `achievement-extractor` |
@@ -40,6 +41,7 @@ Passer par `career-skills-router`. Il pose deux questions au maximum, identifie 
 
 ## Règles de désambiguïsation
 
+- `linkedin-pdf-profile-audit` diagnostique tout le profil et priorise, `linkedin-profile-optimizer` réécrit une section une fois la priorité connue.
 - `achievement-extractor` produit la matière, `cv-optimizer` et `linkedin-profile-optimizer` la mettent en forme.
 - `thought-leadership-generator` produit les angles, `executive-content-writer` rédige le texte final.
 - `call-for-papers-responder` traite la candidature à un événement, `conference-speaker-coach` traite la préparation du talk retenu.

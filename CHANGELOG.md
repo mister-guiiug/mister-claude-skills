@@ -4,6 +4,45 @@ Toutes les évolutions notables de ce dépôt. Le format suit une logique proche
 
 ## [Non publié]
 
+## [0.4.2] - 2026-08-03
+
+### Modifié
+
+- `linkedin-pdf-profile-audit` passe en version 1.1.1, après un second test sur le même export.
+  - Règle de repli quand le persona n’est pas déclaré. `Accompagnement` par défaut, annoncé explicitement, avec l’indication de ce que le livrable deviendrait en évaluation de candidature. `Auto-audit` n’est jamais retenu par défaut, rien ne permet de supposer que le profil est celui de l’utilisateur.
+  - Section `Contrôles de cohérence entre blocs`, six contrôles croisés. Une langue citée en compétence doit figurer dans le bloc `Langues` avec un niveau, un outil déclaré doit apparaître dans une expérience, une certification citée dans une expérience doit figurer dans le bloc dédié, une formation chevauchant un emploi doit être expliquée.
+  - Ligne correspondante dans la grille d’audit et dans les deux checklists.
+
+  Ces contrôles répondent à un défaut trouvé en test et invisible bloc par bloc, une langue déclarée en compétence alors que la section `Langues` est vide, donc non indexée par les filtres recruteur.
+
+## [0.4.1] - 2026-08-03
+
+### Modifié
+
+- `linkedin-pdf-profile-audit` passe en version 1.1.0, après un premier test sur un export réel.
+  - Section `Personas et adaptation du livrable`. La skill n’est plus centrée sur le profil de l’utilisateur. Quatre cas, auto-audit, accompagnement, évaluation de candidature et comparaison, chacun avec son livrable. Aucune reformulation n’est produite en évaluation de candidature.
+  - Section `Structure de l’export, format fixe`, avec les deux zones, les libellés français et anglais de chaque bloc et l’ordre des champs d’une expérience.
+  - Deux règles de lecture tirées du format fixe. Un bloc n’apparaît que s’il a du contenu, donc son absence sur une extraction complète est un constat de section vide, pas un angle mort. L’ordre stable des blocs permet de confirmer une absence.
+  - Section `Contrôle de complétude de l’extraction`, cinq vérifications à faire avant tout constat d’absence.
+  - Points techniques d’extraction ajoutés dans `pdf-export-map.md`, séparation des deux colonnes par coordonnées, polices sous-ensembles à identifiants de glyphes, flux compressés multiples.
+  - Correction, l’URL du profil figure dans le bloc `Coordonnées` et n’est donc pas un angle mort, contrairement à ce qu’indiquait la version 1.0.0.
+
+## [0.4.0] - 2026-08-03
+
+### Ajouté
+
+- Skill `linkedin-pdf-profile-audit`, audit complet d’un profil LinkedIn à partir de son export PDF.
+  - Section `Ce que l’export PDF ne montre pas`, déclarée avant toute conclusion. L’export omet la photo, la bannière, la section Sélection, les recommandations, l’activité, les compétences au delà des premières et l’URL personnalisée.
+  - Grille d’audit couvrant 10 sections, du titre aux coordonnées, avec les défauts fréquents associés.
+  - Grille de priorisation P1 à P4 sur deux axes, effet sur la décision et effort de correction, avec un plafond de cinq P1.
+  - Reconstitution de chronologie, trous et chevauchements signalés comme constats et jamais interprétés.
+  - Reformulations en avant et après pour toutes les priorités P1 et P2.
+  - `references/pdf-export-map.md`, contenu et omissions de l’export, limites d’extraction et signaux à repérer en priorité.
+
+### Modifié
+
+- Délimitation explicite entre `linkedin-pdf-profile-audit` et `linkedin-profile-optimizer`, ajoutée dans les deux skills, dans `career-skills-router`, dans le README et dans le guide d’usage. L’audit diagnostique et priorise, l’optimizer réécrit une section une fois la priorité connue.
+
 ## [0.3.1] - 2026-08-03
 
 ### Modifié
