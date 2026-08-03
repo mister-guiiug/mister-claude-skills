@@ -60,6 +60,18 @@ Format attendu : 3 variantes de prompt, 1 prompt de retouche, 1 prompt de banni�
 Contraintes : ne rien inventer sur mon apparence, aucun logo, aucun décor trompeur.
 ```
 
+## Audit de profil depuis l’export PDF
+
+```text
+Utilise la skill linkedin-pdf-profile-audit.
+Fichier joint : Profile.pdf, export de mon profil LinkedIn.
+Rôle cible : Enterprise Architect.
+Audience : recruteurs et DSI.
+Contraintes : déclare d'abord ce que l'export ne te permet pas de voir,
+cite l'élément précis pour chaque constat, limite les P1 à cinq,
+et termine par une action réalisable aujourd'hui.
+```
+
 ## Orientation
 
 ```text

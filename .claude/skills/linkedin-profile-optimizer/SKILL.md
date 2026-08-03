@@ -45,6 +45,10 @@ Utiliser cette skill lorsque l’utilisateur demande :
 - d’aligner son profil avec un rôle cible ;
 - d’augmenter sa visibilité recruteur ou son positionnement expert.
 
+## Délimitation avec les autres skills
+
+Si l’utilisateur fournit l’export PDF de son profil ou demande un bilan d’ensemble, passer par `linkedin-pdf-profile-audit`. Cette skill travaille en profondeur une ou plusieurs sections, une fois la priorité connue.
+
 ## Méthode
 
 1. Identifier le positionnement actuel : métier, séniorité, domaines d’expertise, différenciants.

@@ -49,6 +49,7 @@ Utiliser cette skill lorsque l’utilisateur :
 
 | Besoin exprimé | Skill |
 | --- | --- |
+| Auditer tout le profil à partir de son export PDF | `linkedin-pdf-profile-audit` |
 | Réécrire headline, About, expériences LinkedIn | `linkedin-profile-optimizer` |
 | Photo de profil, bannière, identité visuelle | `linkedin-profile-photo-prompt` |
 | CV, adaptation à une offre, ATS | `cv-optimizer` |
@@ -72,7 +73,7 @@ Utiliser cette skill lorsque l’utilisateur :
 | Objectif | Enchaînement |
 | --- | --- |
 | Recherche de poste complète | `achievement-extractor`, `cv-optimizer`, `linkedin-profile-optimizer`, `recruiter-perspective-reviewer`, `interview-preparation`, `salary-negotiation` |
-| Refonte du profil LinkedIn | `achievement-extractor`, `linkedin-profile-optimizer`, `linkedin-profile-photo-prompt`, `recruiter-perspective-reviewer` |
+| Refonte du profil LinkedIn | `linkedin-pdf-profile-audit`, `achievement-extractor`, `linkedin-profile-optimizer`, `linkedin-profile-photo-prompt`, `recruiter-perspective-reviewer` |
 | Gagner en visibilité experte | `executive-personal-branding`, `technology-watch`, `thought-leadership-generator`, `executive-content-writer` |
 | Prise de parole publique | `call-for-papers-responder`, `conference-speaker-coach`, `architecture-storytelling-expert` |
 | Approche directe d’une entreprise | `networking-outreach`, `achievement-extractor`, `interview-preparation` |
@@ -80,6 +81,7 @@ Utiliser cette skill lorsque l’utilisateur :
 
 ## Règles de désambiguïsation
 
+- `linkedin-pdf-profile-audit` diagnostique tout le profil et priorise, `linkedin-profile-optimizer` réécrit une section une fois la priorité connue. Si l’utilisateur dispose de son export PDF, commencer par l’audit.
 - `achievement-extractor` produit la matière, `cv-optimizer` et `linkedin-profile-optimizer` la mettent en forme. En cas de doute, commencer par la matière.
 - `thought-leadership-generator` produit des angles, `executive-content-writer` rédige le texte final.
 - `call-for-papers-responder` traite la candidature à un événement, `conference-speaker-coach` traite la préparation du talk retenu.

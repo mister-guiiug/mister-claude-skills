@@ -9,9 +9,11 @@ dist/
 build/
 CLAUDE.local.md
 
-# Photos personnelles utilisees pour tester les skills, a ne pas committer.
+# Fichiers personnels utilises pour tester les skills, a ne pas committer.
+# Photos de profil et exports PDF LinkedIn contiennent des donnees personnelles.
 /*.jpg
 /*.jpeg
 /*.png
 /*.webp
 /*.heic
+/*.pdf
