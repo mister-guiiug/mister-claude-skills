@@ -18,7 +18,7 @@ scripts/
 .github/workflows/
 ```
 
-18 skills, chacune autonome et copiable seule.
+19 skills, chacune autonome et copiable seule.
 
 ## Installation
 
@@ -39,6 +39,8 @@ Script d’installation, Windows :
 ```bash
 powershell -ExecutionPolicy Bypass -File scripts/install.ps1
 ```
+
+Les deux scripts remplacent toute skill du même nom déjà présente dans le dossier cible.
 
 Installation manuelle :
 
@@ -71,57 +73,57 @@ Je veux être plus visible dans mon domaine, je ne sais pas par où commencer.
 
 ### Orientation
 
-| Skill | Usage |
-| --- | --- |
+| Skill                  | Usage                                                            |
+| ---------------------- | ---------------------------------------------------------------- |
 | `career-skills-router` | Oriente vers la bonne skill et propose l’enchaînement de travail |
 
 ### Candidature et recrutement
 
-| Skill | Usage |
-| --- | --- |
-| `achievement-extractor` | Transforme des notes de projet en réalisations mesurables |
-| `cv-optimizer` | Adapte un CV à un rôle cible, ATS compris |
-| `recruiter-perspective-reviewer` | Relecture du point de vue recruteur et hiring manager |
-| `interview-preparation` | Réponses, récits STAR à l’oral, objections, questions à poser |
-| `salary-negotiation` | Package, argumentaire, fourchette, scénarios de réponse |
+| Skill                            | Usage                                                         |
+| -------------------------------- | ------------------------------------------------------------- |
+| `achievement-extractor`          | Transforme des notes de projet en réalisations mesurables     |
+| `cv-optimizer`                   | Adapte un CV à un rôle cible, ATS compris                     |
+| `recruiter-perspective-reviewer` | Relecture du point de vue recruteur et hiring manager         |
+| `interview-preparation`          | Réponses, récits STAR à l’oral, objections, questions à poser |
+| `salary-negotiation`             | Package, argumentaire, fourchette, scénarios de réponse       |
 
 ### Présence professionnelle
 
-| Skill | Usage |
-| --- | --- |
-| `linkedin-pdf-profile-audit` | Audit complet du profil à partir de son export PDF |
-| `linkedin-profile-optimizer` | Headline, About, expériences, compétences |
-| `linkedin-profile-photo-prompt` | Prompts de photo de profil et de bannière |
-| `executive-personal-branding` | Positionnement et proposition de valeur |
-| `networking-outreach` | Messages d’approche, relances, remerciements |
+| Skill                           | Usage                                              |
+| ------------------------------- | -------------------------------------------------- |
+| `linkedin-pdf-profile-audit`    | Audit complet du profil à partir de son export PDF |
+| `linkedin-profile-optimizer`    | Headline, About, expériences, compétences          |
+| `linkedin-profile-photo-prompt` | Prompts de photo de profil et de bannière          |
+| `executive-personal-branding`   | Positionnement et proposition de valeur            |
+| `networking-outreach`           | Messages d’approche, relances, remerciements       |
 
 ### Contenu et prise de parole
 
-| Skill | Usage |
-| --- | --- |
-| `thought-leadership-generator` | Angles de contenu et calendrier éditorial |
-| `executive-content-writer` | Rédaction finale, posts, notes, messages |
-| `architecture-storytelling-expert` | Récit de projet d’architecture |
-| `call-for-papers-responder` | Candidature à un appel à conférenciers |
-| `conference-speaker-coach` | Préparation du talk, trame, biographie |
+| Skill                              | Usage                                     |
+| ---------------------------------- | ----------------------------------------- |
+| `thought-leadership-generator`     | Angles de contenu et calendrier éditorial |
+| `executive-content-writer`         | Rédaction finale, posts, notes, messages  |
+| `architecture-storytelling-expert` | Récit de projet d’architecture            |
+| `call-for-papers-responder`        | Candidature à un appel à conférenciers    |
+| `conference-speaker-coach`         | Préparation du talk, trame, biographie    |
 
 ### Expertise et trajectoire
 
-| Skill | Usage |
-| --- | --- |
+| Skill                         | Usage                                              |
+| ----------------------------- | -------------------------------------------------- |
 | `it-architect-career-advisor` | Trajectoire d’architecte, options et contreparties |
-| `technology-watch` | Note de veille, radar technologique |
-| `ai-governance` | Cadre de gouvernance IA, rôles, risques, contrôles |
+| `technology-watch`            | Note de veille, radar technologique                |
+| `ai-governance`               | Cadre de gouvernance IA, rôles, risques, contrôles |
 
 ## Tooling
 
-| Commande | Usage |
-| --- | --- |
-| `python scripts/validate_structure.py` | Valide frontmatter, nommage, version, sections, fichiers annexes et règle sans em dash |
-| `python scripts/validate_structure.py --strict` | Même validation, les avertissements deviennent bloquants |
-| `python scripts/new_skill.py <nom-kebab-case>` | Crée le squelette complet d’une nouvelle skill |
-| `bash scripts/install.sh` | Installe les skills dans `~/.claude/skills` |
-| `powershell -File scripts/install.ps1` | Installe les skills sous Windows |
+| Commande                                                       | Usage                                                                                  |
+| -------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `python scripts/validate_structure.py`                         | Valide frontmatter, nommage, version, sections, fichiers annexes et règle sans em dash |
+| `python scripts/validate_structure.py --strict`                | Même validation, les avertissements deviennent bloquants                               |
+| `python scripts/new_skill.py <nom-kebab-case>`                 | Crée le squelette complet d’une nouvelle skill                                         |
+| `bash scripts/install.sh`                                      | Installe les skills dans `~/.claude/skills`                                            |
+| `powershell -ExecutionPolicy Bypass -File scripts/install.ps1` | Installe les skills sous Windows                                                       |
 
 La validation est rejouée automatiquement par GitHub Actions, voir `.github/workflows/validate.yml`.
 
