@@ -1,8 +1,34 @@
 # Changelog
 
-Toutes les évolutions notables de ce dépôt. Le format suit une logique proche de Keep a Changelog. Chaque skill porte sa propre version dans le frontmatter de son `SKILL.md`.
+Toutes les évolutions notables de ce dépôt. Le format suit une logique proche de Keep a Changelog. Chaque skill porte sa propre version dans le frontmatter de son `SKILL.md`, sous `metadata.version`.
 
 ## [Non publié]
+
+## [0.5.0] - 2026-10-28
+
+### Ajouté
+
+- Le dépôt est une place de marché de plugins Claude Code. Le plugin `career-skills` porte les 19 skills, désormais rangées dans `plugins/career-skills/skills/` : `/plugin marketplace add mister-guiiug/mister-claude-skills`, puis `/plugin install career-skills@mister-guiiug`. Sa version suit celle de ce CHANGELOG, et le validateur fait une erreur si elles divergent : un utilisateur reste sur la version du manifeste tant qu’elle ne change pas. Les scripts d’installation restent, pour une installation sans plugin.
+- CI : `claude plugin validate --strict` sur la place de marché et sur le plugin.
+- Tests de déclenchement, `plugins/career-skills/evals/` : pour chaque skill, une demande qui doit la déclencher et une demande voisine qui relève d’une autre skill, jouées par `claude plugin eval`. Le validateur signale une skill sans ses deux cas.
+- `career-skills-router` : ses deux cas mesurent s’il aide sur une demande floue et s’il capte une demande précise qui devrait aller à une autre skill. Le garder, le resserrer ou le retirer se décidera sur ces résultats.
+
+### Modifié
+
+- CI : permissions du workflow en lecture seule (`contents: read`), ce qui ferme l’alerte CodeQL `actions/missing-workflow-permissions`. Le validateur y tourne en `--strict`, comme `docs/conventions.md` le demande avant chaque commit.
+- `CLAUDE.md` importe `AGENTS.md` au lieu d’en recopier le texte : les règles n’existent plus qu’à un seul endroit.
+- Le validateur vérifie aussi la table d’orientation de `career-skills-router`, que les conventions imposent de tenir à jour au même titre que le README et le guide d’usage.
+
+- Frontmatter des 19 skills : `version` et `updated` passent sous `metadata`. claude.ai et l’API Skills n’acceptent au premier niveau que `name`, `description`, `license`, `compatibility`, `metadata` et `allowed-tools`, et refusent la skill pour toute autre clé ; Claude Code les ignorait sans rien dire. Le validateur en fait une erreur, `new_skill.py` et `docs/conventions.md` suivent.
+
+- Les 19 skills ont une section `Ressources` qui cite chaque fichier de `references/` et de `templates/`, avec le moment où le lire. Seule `linkedin-profile-photo-prompt` en citait un : Claude ne lit un fichier annexe que si `SKILL.md` le lui indique, si bien que 57 fichiers ne servaient pas. Le validateur fait une erreur de tout fichier annexe non cité.
+- Chaque skill passe à la version mineure suivante (section `Ressources`), datée du 2026-10-28.
+- `Données d’entrée attendues` réécrite dans 12 skills qui la partageaient au caractère près : 10 skills sur un même bloc, `ai-governance` et `technology-watch` sur un autre. Le coach de conférencier demandait ainsi « 3 à 5 offres d’emploi cibles », sans jamais demander le sujet, le public ni la durée de l’intervention. Chaque liste part désormais de la mission, de la méthode et des livrables de sa skill. Le validateur avertit quand deux skills ont le même bloc d’entrées.
+- `new_skill.py` date la skill du jour par défaut, au lieu d’un `[à compléter]` que le validateur refusait.
+
+### Maintenance depuis 0.4.2
+
+Sans changement des skills : préréglage Renovate de la famille (#4), actions GitHub en v7 (#6), Python 3.14 (#7), `AGENTS.md` (#8), bouton Sponsor (#9), README à jour (#10).
 
 ## [0.4.2] - 2026-08-03
 

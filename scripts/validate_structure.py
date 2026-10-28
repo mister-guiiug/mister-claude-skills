@@ -10,12 +10,19 @@ Sans dépendance externe. Utilisation :
 from __future__ import annotations
 
 import argparse
+import json
 import re
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SKILLS_DIR = ROOT / ".claude" / "skills"
+MARKETPLACE_FILE = ROOT / ".claude-plugin" / "marketplace.json"
+PLUGIN_DIR = ROOT / "plugins" / "career-skills"
+SKILLS_DIR = PLUGIN_DIR / "skills"
+EVALS_DIR = PLUGIN_DIR / "evals"
+CHANGELOG_FILE = ROOT / "CHANGELOG.md"
+RESERVED_PLUGIN_PREFIXES = ("claude-", "anthropic-")
+RELEASE_HEADING = re.compile(r"^## \[(\d+\.\d+\.\d+)\]", re.M)
 
 NAME_PATTERN = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 VERSION_PATTERN = re.compile(r"^\d+\.\d+\.\d+$")
@@ -24,6 +31,8 @@ NAME_MAX_LENGTH = 64
 DESCRIPTION_MIN_LENGTH = 40
 DESCRIPTION_MAX_LENGTH = 1024
 EM_DASH = "—"
+# Les seules clés de premier niveau qu'acceptent claude.ai et l'API Skills.
+PORTABLE_KEYS = {"name", "description", "license", "compatibility", "metadata", "allowed-tools"}
 
 REQUIRED_SECTIONS = [
     "## Principes non négociables",
@@ -32,7 +41,12 @@ REQUIRED_SECTIONS = [
     "## Méthode",
     "## Format de sortie recommandé",
     "## Checklist qualité avant réponse",
+    "## Ressources",
 ]
+
+ANNEX_FOLDERS = ["references", "templates"]
+
+INPUTS_HEADING = "## Données d’entrée attendues"
 
 RECOMMENDED_FILES = [
     Path("references") / "quality-checklist.md",
@@ -44,6 +58,8 @@ INDEX_FILES = [
     Path("README.md"),
     Path("docs") / "usage-guide.md",
 ]
+
+ROUTER_NAME = "career-skills-router"
 
 
 class Report:
@@ -72,14 +88,22 @@ def parse_frontmatter(text: str) -> tuple[dict[str, str], str | None]:
     if closing is None:
         return {}, "frontmatter YAML non fermé, délimiteur --- manquant"
 
+    # Un seul niveau d'imbrication suffit : les clés indentées sous `metadata:`
+    # sont rangées sous la forme `metadata.version`.
     fields: dict[str, str] = {}
+    parent: str | None = None
     for line in lines[1:closing]:
         if not line.strip() or line.lstrip().startswith("#"):
             continue
         if ":" not in line:
             continue
         key, value = line.split(":", 1)
-        fields[key.strip()] = value.strip().strip('"').strip("'")
+        key, value = key.strip(), value.strip().strip('"').strip("'")
+        if line[0] in " \t" and parent:
+            fields[f"{parent}.{key}"] = value
+            continue
+        parent = key if not value else None
+        fields[key] = value
     return fields, None
 
 
@@ -146,17 +170,26 @@ def check_skill(skill_dir: Path, report: Report) -> str | None:
                 "ajouter une formulation du type 'Utiliser quand ...'"
             )
 
-    version = fields.get("version")
-    if not version:
-        report.warn(f"{rel}/SKILL.md : champ version absent, ajouter version: 1.0.0")
-    elif not VERSION_PATTERN.match(version):
-        report.error(f"{rel}/SKILL.md : version '{version}' non conforme au format x.y.z")
+    # claude.ai et l'API Skills refusent toute autre clé de premier niveau ;
+    # Claude Code, lui, l'ignorerait sans rien dire.
+    for key in fields:
+        if "." not in key and key not in PORTABLE_KEYS:
+            report.error(
+                f"{rel}/SKILL.md : clé '{key}' refusée par claude.ai et l'API Skills, "
+                "la ranger sous metadata"
+            )
 
-    updated = fields.get("updated")
+    version = fields.get("metadata.version")
+    if not version:
+        report.warn(f"{rel}/SKILL.md : metadata.version absent, ajouter version: \"1.0.0\" sous metadata")
+    elif not VERSION_PATTERN.match(version):
+        report.error(f"{rel}/SKILL.md : metadata.version '{version}' non conforme au format x.y.z")
+
+    updated = fields.get("metadata.updated")
     if not updated:
-        report.warn(f"{rel}/SKILL.md : champ updated absent, ajouter updated: AAAA-MM-JJ")
+        report.warn(f"{rel}/SKILL.md : metadata.updated absent, ajouter updated: \"AAAA-MM-JJ\" sous metadata")
     elif not UPDATED_PATTERN.match(updated):
-        report.error(f"{rel}/SKILL.md : updated '{updated}' non conforme au format AAAA-MM-JJ")
+        report.error(f"{rel}/SKILL.md : metadata.updated '{updated}' non conforme au format AAAA-MM-JJ")
 
     for section in REQUIRED_SECTIONS:
         if section not in text:
@@ -166,6 +199,16 @@ def check_skill(skill_dir: Path, report: Report) -> str | None:
         if not (skill_dir / relative_file).exists():
             report.warn(f"{rel} : fichier conseillé absent, {relative_file.as_posix()}")
 
+    # Claude ne lit un fichier annexe que si SKILL.md lui dit quand le faire.
+    for folder in ANNEX_FOLDERS:
+        for annex in sorted(p for p in (skill_dir / folder).glob("*") if p.is_file()):
+            relative = annex.relative_to(skill_dir).as_posix()
+            if relative not in text:
+                report.error(
+                    f"{rel}/SKILL.md : {relative} n'est cité nulle part, Claude ne le lira pas ; "
+                    "le citer dans la section Ressources en disant quand le lire"
+                )
+
     for markdown_file in sorted(skill_dir.rglob("*.md")):
         content = markdown_file.read_text(encoding="utf-8")
         for line_number, line in enumerate(content.splitlines(), start=1):
@@ -174,6 +217,95 @@ def check_skill(skill_dir: Path, report: Report) -> str | None:
                 report.error(f"{location}:{line_number} : em dash interdit par CLAUDE.md")
 
     return name
+
+
+def read_json(path: Path, report: Report) -> dict | None:
+    location = path.relative_to(ROOT).as_posix()
+    if not path.exists():
+        report.error(f"{location} : fichier absent")
+        return None
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as error:
+        report.error(f"{location} : JSON invalide, {error}")
+        return None
+
+
+def check_plugin(report: Report) -> None:
+    """La place de marché, le manifeste du plugin et leur version.
+
+    `claude plugin validate`, en CI, contrôle le schéma complet ; ici, ce qu'il
+    ne sait pas : la cohérence entre les deux fichiers et avec le CHANGELOG.
+    """
+    marketplace = read_json(MARKETPLACE_FILE, report)
+    if marketplace is None:
+        return
+    entries = marketplace.get("plugins") or []
+    if not marketplace.get("owner") or not entries:
+        report.error(".claude-plugin/marketplace.json : owner et plugins sont obligatoires")
+    for entry in entries:
+        name, source = entry.get("name", ""), entry.get("source", "")
+        if name.startswith(RESERVED_PLUGIN_PREFIXES):
+            report.error(f"plugin '{name}' : les préfixes claude- et anthropic- sont réservés")
+        if not source.startswith("./") or not (ROOT / source).is_dir():
+            report.error(f"plugin '{name}' : source '{source}' introuvable dans le dépôt")
+            continue
+        manifest = read_json(ROOT / source / ".claude-plugin" / "plugin.json", report)
+        if manifest is None:
+            continue
+        if manifest.get("name") != name:
+            report.error(f"plugin '{name}' : plugin.json porte le nom '{manifest.get('name')}'")
+        version = manifest.get("version", "")
+        releases = RELEASE_HEADING.findall(CHANGELOG_FILE.read_text(encoding="utf-8"))
+        if not VERSION_PATTERN.match(version):
+            report.error(f"plugin '{name}' : version '{version}' non conforme au format x.y.z")
+        elif not releases or releases[0] != version:
+            report.error(
+                f"plugin '{name}' : version {version} différente de la dernière version du CHANGELOG "
+                f"({releases[0] if releases else 'aucune'}) ; les utilisateurs restent sur la "
+                "version du manifeste tant qu'elle ne change pas"
+            )
+
+
+def check_evals(names: list[str], report: Report) -> None:
+    """Chaque skill a un cas qui doit la déclencher et un cas voisin qui ne le doit pas.
+
+    `claude plugin eval` les joue ; ici, on vérifie seulement qu'ils existent.
+    """
+    for name in names:
+        for suffix, grader in (("oui", "declenche.md"), ("non", "ne-declenche-pas.md")):
+            case = EVALS_DIR / f"{name}-{suffix}"
+            location = case.relative_to(ROOT).as_posix()
+            if not (case / "prompt.md").exists() or not (case / "graders" / grader).exists():
+                report.warn(f"{location} : cas de déclenchement absent, prompt.md et graders/{grader}")
+
+
+def section_text(text: str, heading: str) -> str | None:
+    """Retourne le texte d'une section `## ...`, sans son titre, ou None si elle manque."""
+    lines = text.splitlines()
+    if heading not in lines:
+        return None
+    start = lines.index(heading) + 1
+    end = next((i for i in range(start, len(lines)) if lines[i].startswith("## ")), len(lines))
+    return "\n".join(lines[start:end]).strip()
+
+
+def check_duplicate_inputs(skill_dirs: list[Path], report: Report) -> None:
+    """Deux skills qui demandent exactement les mêmes entrées en ont recopié la liste."""
+    by_block: dict[str, list[str]] = {}
+    for skill_dir in skill_dirs:
+        skill_file = skill_dir / "SKILL.md"
+        if not skill_file.exists():
+            continue
+        block = section_text(skill_file.read_text(encoding="utf-8"), INPUTS_HEADING)
+        if block:
+            by_block.setdefault(block, []).append(skill_dir.name)
+    for names in by_block.values():
+        if len(names) > 1:
+            report.warn(
+                f"section {INPUTS_HEADING[3:]} identique dans {', '.join(names)} : "
+                "adapter les entrées à chaque skill"
+            )
 
 
 def check_indexes(names: list[str], report: Report) -> None:
@@ -186,6 +318,15 @@ def check_indexes(names: list[str], report: Report) -> None:
         for name in names:
             if name not in content:
                 report.warn(f"{index_file.as_posix()} : skill '{name}' non référencée")
+
+    # La table d'orientation du routeur, que docs/conventions.md impose aussi de tenir à jour.
+    router = SKILLS_DIR / ROUTER_NAME / "SKILL.md"
+    if router.exists():
+        content = router.read_text(encoding="utf-8")
+        location = router.relative_to(ROOT).as_posix()
+        for name in names:
+            if name != ROUTER_NAME and f"`{name}`" not in content:
+                report.warn(f"{location} : skill '{name}' absente de la table d'orientation")
 
 
 def main() -> int:
@@ -217,7 +358,10 @@ def main() -> int:
         if name:
             names.append(name)
 
+    check_plugin(report)
+    check_duplicate_inputs(skill_dirs, report)
     check_indexes(names, report)
+    check_evals(names, report)
 
     for warning in report.warnings:
         print(f"WARN  {warning}")

@@ -1,0 +1,14 @@
+{
+  "name": "mister-guiiug",
+  "owner": {
+    "name": "mister-guiiug"
+  },
+  "description": "Skills Claude pour le CV, LinkedIn et le personal branding d’un profil IT senior.",
+  "plugins": [
+    {
+      "name": "career-skills",
+      "source": "./plugins/career-skills",
+      "description": "19 skills : CV, profil LinkedIn, entretiens, prises de parole, veille et gouvernance IA."
+    }
+  ]
+}

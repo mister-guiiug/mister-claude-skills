@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 # Installe les skills du dépôt dans le dossier utilisateur Claude.
 # Usage : bash scripts/install.sh [destination]
+# Sans objet si le plugin career-skills est installé : les skills seraient en double.
 set -euo pipefail
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-source_dir="$repo_root/.claude/skills"
+source_dir="$repo_root/plugins/career-skills/skills"
 target_dir="${1:-$HOME/.claude/skills}"
 
 if [ ! -d "$source_dir" ]; then

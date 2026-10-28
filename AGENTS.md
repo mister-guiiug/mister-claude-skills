@@ -13,4 +13,6 @@ Ce dépôt contient des skills dédiées à l’optimisation LinkedIn, CV, perso
 
 ## Usage recommandé
 
-Quand une demande concerne LinkedIn, CV, carrière, personal branding, conférence ou contenu professionnel, sélectionner la skill la plus spécifique dans `.claude/skills`.
+Quand une demande concerne LinkedIn, CV, carrière, personal branding, conférence ou contenu professionnel, sélectionner la skill la plus spécifique dans `plugins/career-skills/skills`.
+
+Pour les avoir comme skills en travaillant dans ce dépôt, installer le plugin depuis la copie locale : `/plugin marketplace add ./`, puis `/plugin install career-skills@mister-guiiug`.
