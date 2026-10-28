@@ -15,6 +15,7 @@ plugins/
         references/quality-checklist.md
         references/example-output.md
         templates/prompt-template.md
+    evals/                             tests de déclenchement
 docs/
 examples/
 scripts/
@@ -86,6 +87,16 @@ En cas de doute sur la skill à utiliser, passer par le routeur :
 Utilise la skill career-skills-router.
 Je veux être plus visible dans mon domaine, je ne sais pas par où commencer.
 ```
+
+## Tester le déclenchement
+
+Claude choisit une skill d’après sa seule description. `plugins/career-skills/evals/` contient, pour chaque skill, une demande qui doit la déclencher (`<skill>-oui`) et une demande voisine, qui relève d’une autre skill, et ne doit pas la déclencher (`<skill>-non`). Les deux cas de `career-skills-router` mesurent en plus s’il capte une demande précise qui devrait aller directement à une skill.
+
+```bash
+claude plugin eval ./plugins/career-skills --ablation none --threshold 0.8
+```
+
+Il faut Claude Code 2.1.269 ou plus. Chaque cas est joué trois fois, chaque fois dans une vraie session : la suite complète en ouvre 114. La lancer après une modification de description, pas à chaque commit. Le rapport s’écrit dans `plugins/career-skills/evals/results/`.
 
 ## Skills incluses
 

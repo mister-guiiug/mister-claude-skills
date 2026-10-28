@@ -19,6 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 MARKETPLACE_FILE = ROOT / ".claude-plugin" / "marketplace.json"
 PLUGIN_DIR = ROOT / "plugins" / "career-skills"
 SKILLS_DIR = PLUGIN_DIR / "skills"
+EVALS_DIR = PLUGIN_DIR / "evals"
 CHANGELOG_FILE = ROOT / "CHANGELOG.md"
 RESERVED_PLUGIN_PREFIXES = ("claude-", "anthropic-")
 RELEASE_HEADING = re.compile(r"^## \[(\d+\.\d+\.\d+)\]", re.M)
@@ -266,6 +267,19 @@ def check_plugin(report: Report) -> None:
             )
 
 
+def check_evals(names: list[str], report: Report) -> None:
+    """Chaque skill a un cas qui doit la déclencher et un cas voisin qui ne le doit pas.
+
+    `claude plugin eval` les joue ; ici, on vérifie seulement qu'ils existent.
+    """
+    for name in names:
+        for suffix, grader in (("oui", "declenche.md"), ("non", "ne-declenche-pas.md")):
+            case = EVALS_DIR / f"{name}-{suffix}"
+            location = case.relative_to(ROOT).as_posix()
+            if not (case / "prompt.md").exists() or not (case / "graders" / grader).exists():
+                report.warn(f"{location} : cas de déclenchement absent, prompt.md et graders/{grader}")
+
+
 def section_text(text: str, heading: str) -> str | None:
     """Retourne le texte d'une section `## ...`, sans son titre, ou None si elle manque."""
     lines = text.splitlines()
@@ -347,6 +361,7 @@ def main() -> int:
     check_plugin(report)
     check_duplicate_inputs(skill_dirs, report)
     check_indexes(names, report)
+    check_evals(names, report)
 
     for warning in report.warnings:
         print(f"WARN  {warning}")

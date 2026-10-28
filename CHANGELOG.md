@@ -10,6 +10,8 @@ Toutes les évolutions notables de ce dépôt. Le format suit une logique proche
 
 - Le dépôt est une place de marché de plugins Claude Code. Le plugin `career-skills` porte les 19 skills, désormais rangées dans `plugins/career-skills/skills/` : `/plugin marketplace add mister-guiiug/mister-claude-skills`, puis `/plugin install career-skills@mister-guiiug`. Sa version suit celle de ce CHANGELOG, et le validateur fait une erreur si elles divergent : un utilisateur reste sur la version du manifeste tant qu’elle ne change pas. Les scripts d’installation restent, pour une installation sans plugin.
 - CI : `claude plugin validate --strict` sur la place de marché et sur le plugin.
+- Tests de déclenchement, `plugins/career-skills/evals/` : pour chaque skill, une demande qui doit la déclencher et une demande voisine qui relève d’une autre skill, jouées par `claude plugin eval`. Le validateur signale une skill sans ses deux cas.
+- `career-skills-router` : ses deux cas mesurent s’il aide sur une demande floue et s’il capte une demande précise qui devrait aller à une autre skill. Le garder, le resserrer ou le retirer se décidera sur ces résultats.
 
 ### Modifié
 

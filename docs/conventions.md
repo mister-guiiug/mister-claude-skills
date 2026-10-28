@@ -83,4 +83,6 @@ Chaque skill fournit un `references/quality-checklist.md` spécifique à son dom
 python scripts/validate_structure.py --strict
 ```
 
+Pour une nouvelle skill, écrire ses deux cas de déclenchement dans `plugins/career-skills/evals/`, `<nom>-oui` et `<nom>-non`, sur le modèle des autres : le validateur signale leur absence.
+
 Puis référencer la nouvelle skill dans `README.md`, `docs/usage-guide.md`, `CHANGELOG.md`, la table d’orientation de `career-skills-router` et si pertinent `examples/sample-prompts.md`. Le validateur signale les oublis dans le README et le guide d’usage.
