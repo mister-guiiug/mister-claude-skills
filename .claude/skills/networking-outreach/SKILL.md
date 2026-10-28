@@ -1,8 +1,9 @@
 ---
 name: networking-outreach
-version: 1.0.0
-updated: 2026-08-03
 description: Rédige des messages de mise en relation, d’approche directe, de relance et de remerciement, courts et non intrusifs, adaptés au destinataire. Utiliser quand l’utilisateur veut contacter quelqu’un sur LinkedIn, envoyer une demande de connexion, approcher un recruteur ou un hiring manager, relancer après un entretien, demander un échange informel ou entretenir son réseau.
+metadata:
+  version: "1.0.0"
+  updated: "2026-08-03"
 ---
 
 # Networking Outreach

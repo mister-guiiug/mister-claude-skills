@@ -1,8 +1,9 @@
 ---
 name: salary-negotiation
-version: 1.0.0
-updated: 2026-08-03
 description: Prépare une négociation de rémunération, package, contre-offre ou augmentation, avec arguments factuels, fourchette argumentée et scénarios de réponse. Utiliser quand l’utilisateur parle de salaire, package, prime, contre-offre, augmentation, promotion, proposition d’embauche ou conditions contractuelles.
+metadata:
+  version: "1.0.0"
+  updated: "2026-08-03"
 ---
 
 # Salary Negotiation

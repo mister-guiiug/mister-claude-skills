@@ -1,8 +1,9 @@
 ---
 name: technology-watch
-version: 1.0.0
-updated: 2026-08-03
 description: Structure une veille technologique factuelle, sourcée et actionnable pour identifier tendances, signaux faibles, impacts IT, risques et opportunités. Utiliser quand l’utilisateur demande une note de veille, un radar technologique, une analyse de tendance, une comparaison de solutions ou une synthèse marché pour une DSI.
+metadata:
+  version: "1.0.0"
+  updated: "2026-08-03"
 ---
 
 # Technology Watch

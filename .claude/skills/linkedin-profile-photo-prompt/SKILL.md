@@ -1,8 +1,9 @@
 ---
 name: linkedin-profile-photo-prompt
-version: 1.2.1
-updated: 2026-08-03
 description: Trie des photos candidates, diagnostique ce qui est corrigeable et génère des prompts prêts à coller pour une photo de profil LinkedIn et une bannière. Utiliser quand l’utilisateur parle de photo de profil, avatar, portrait professionnel, headshot, bannière LinkedIn, image de couverture, identité visuelle LinkedIn, ou quand il fournit une ou plusieurs photos à évaluer.
+metadata:
+  version: "1.2.1"
+  updated: "2026-08-03"
 ---
 
 # LinkedIn Profile Photo Prompt

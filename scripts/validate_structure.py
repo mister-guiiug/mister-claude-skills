@@ -24,6 +24,8 @@ NAME_MAX_LENGTH = 64
 DESCRIPTION_MIN_LENGTH = 40
 DESCRIPTION_MAX_LENGTH = 1024
 EM_DASH = "—"
+# Les seules clés de premier niveau qu'acceptent claude.ai et l'API Skills.
+PORTABLE_KEYS = {"name", "description", "license", "compatibility", "metadata", "allowed-tools"}
 
 REQUIRED_SECTIONS = [
     "## Principes non négociables",
@@ -74,14 +76,22 @@ def parse_frontmatter(text: str) -> tuple[dict[str, str], str | None]:
     if closing is None:
         return {}, "frontmatter YAML non fermé, délimiteur --- manquant"
 
+    # Un seul niveau d'imbrication suffit : les clés indentées sous `metadata:`
+    # sont rangées sous la forme `metadata.version`.
     fields: dict[str, str] = {}
+    parent: str | None = None
     for line in lines[1:closing]:
         if not line.strip() or line.lstrip().startswith("#"):
             continue
         if ":" not in line:
             continue
         key, value = line.split(":", 1)
-        fields[key.strip()] = value.strip().strip('"').strip("'")
+        key, value = key.strip(), value.strip().strip('"').strip("'")
+        if line[0] in " \t" and parent:
+            fields[f"{parent}.{key}"] = value
+            continue
+        parent = key if not value else None
+        fields[key] = value
     return fields, None
 
 
@@ -148,17 +158,26 @@ def check_skill(skill_dir: Path, report: Report) -> str | None:
                 "ajouter une formulation du type 'Utiliser quand ...'"
             )
 
-    version = fields.get("version")
-    if not version:
-        report.warn(f"{rel}/SKILL.md : champ version absent, ajouter version: 1.0.0")
-    elif not VERSION_PATTERN.match(version):
-        report.error(f"{rel}/SKILL.md : version '{version}' non conforme au format x.y.z")
+    # claude.ai et l'API Skills refusent toute autre clé de premier niveau ;
+    # Claude Code, lui, l'ignorerait sans rien dire.
+    for key in fields:
+        if "." not in key and key not in PORTABLE_KEYS:
+            report.error(
+                f"{rel}/SKILL.md : clé '{key}' refusée par claude.ai et l'API Skills, "
+                "la ranger sous metadata"
+            )
 
-    updated = fields.get("updated")
+    version = fields.get("metadata.version")
+    if not version:
+        report.warn(f"{rel}/SKILL.md : metadata.version absent, ajouter version: \"1.0.0\" sous metadata")
+    elif not VERSION_PATTERN.match(version):
+        report.error(f"{rel}/SKILL.md : metadata.version '{version}' non conforme au format x.y.z")
+
+    updated = fields.get("metadata.updated")
     if not updated:
-        report.warn(f"{rel}/SKILL.md : champ updated absent, ajouter updated: AAAA-MM-JJ")
+        report.warn(f"{rel}/SKILL.md : metadata.updated absent, ajouter updated: \"AAAA-MM-JJ\" sous metadata")
     elif not UPDATED_PATTERN.match(updated):
-        report.error(f"{rel}/SKILL.md : updated '{updated}' non conforme au format AAAA-MM-JJ")
+        report.error(f"{rel}/SKILL.md : metadata.updated '{updated}' non conforme au format AAAA-MM-JJ")
 
     for section in REQUIRED_SECTIONS:
         if section not in text:

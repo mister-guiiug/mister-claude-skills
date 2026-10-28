@@ -20,9 +20,10 @@ NAME_PATTERN = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 
 SKILL_TEMPLATE = """---
 name: {name}
-version: 1.0.0
-updated: {updated}
 description: {description}
+metadata:
+  version: "1.0.0"
+  updated: "{updated}"
 ---
 
 # {title}

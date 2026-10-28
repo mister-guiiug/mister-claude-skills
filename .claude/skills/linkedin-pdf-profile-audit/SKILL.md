@@ -1,8 +1,9 @@
 ---
 name: linkedin-pdf-profile-audit
-version: 1.1.1
-updated: 2026-08-03
 description: Audite un profil LinkedIn à partir de son export PDF, le sien ou celui d’un tiers, section par section, avec diagnostic priorisé et reformulations prêtes à coller. Utiliser quand l’utilisateur fournit un PDF exporté depuis LinkedIn, un fichier Profile.pdf, demande un audit complet de profil, évalue une candidature, accompagne quelqu’un sur son profil ou compare plusieurs profils.
+metadata:
+  version: "1.1.1"
+  updated: "2026-08-03"
 ---
 
 # LinkedIn PDF Profile Audit

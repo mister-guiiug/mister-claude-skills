@@ -1,8 +1,9 @@
 ---
 name: career-skills-router
-version: 1.0.0
-updated: 2026-08-03
 description: Oriente une demande carrière, LinkedIn, CV ou personal branding vers la ou les skills adaptées du dépôt, et propose l’enchaînement de travail. Utiliser quand la demande couvre plusieurs sujets, quand l’utilisateur ne sait pas par où commencer, quand il demande quelle skill utiliser, ou quand aucune skill spécifique ne s’impose clairement.
+metadata:
+  version: "1.0.0"
+  updated: "2026-08-03"
 ---
 
 # Career Skills Router

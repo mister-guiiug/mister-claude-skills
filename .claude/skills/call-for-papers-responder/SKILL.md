@@ -1,8 +1,9 @@
 ---
 name: call-for-papers-responder
-version: 1.0.0
-updated: 2026-08-03
 description: Traite une candidature à un appel à conférenciers de bout en bout, du choix des événements au remplissage du formulaire, en calibrant la proposition sur les critères du comité. Utiliser quand l’utilisateur répond à un CFP, veut soumettre un talk, choisir un événement, comprendre pourquoi une soumission a été refusée ou améliorer un abstract déjà rédigé.
+metadata:
+  version: "1.0.0"
+  updated: "2026-08-03"
 ---
 
 # Call For Papers Responder

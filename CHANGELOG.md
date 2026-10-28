@@ -1,6 +1,6 @@
 # Changelog
 
-Toutes les évolutions notables de ce dépôt. Le format suit une logique proche de Keep a Changelog. Chaque skill porte sa propre version dans le frontmatter de son `SKILL.md`.
+Toutes les évolutions notables de ce dépôt. Le format suit une logique proche de Keep a Changelog. Chaque skill porte sa propre version dans le frontmatter de son `SKILL.md`, sous `metadata.version`.
 
 ## [Non publié]
 
@@ -9,6 +9,8 @@ Toutes les évolutions notables de ce dépôt. Le format suit une logique proche
 - CI : permissions du workflow en lecture seule (`contents: read`), ce qui ferme l’alerte CodeQL `actions/missing-workflow-permissions`. Le validateur y tourne en `--strict`, comme `docs/conventions.md` le demande avant chaque commit.
 - `CLAUDE.md` importe `AGENTS.md` au lieu d’en recopier le texte : les règles n’existent plus qu’à un seul endroit.
 - Le validateur vérifie aussi la table d’orientation de `career-skills-router`, que les conventions imposent de tenir à jour au même titre que le README et le guide d’usage.
+
+- Frontmatter des 19 skills : `version` et `updated` passent sous `metadata`. claude.ai et l’API Skills n’acceptent au premier niveau que `name`, `description`, `license`, `compatibility`, `metadata` et `allowed-tools`, et refusent la skill pour toute autre clé ; Claude Code les ignorait sans rien dire. Le validateur en fait une erreur, `new_skill.py` et `docs/conventions.md` suivent.
 
 ### Maintenance depuis 0.4.2
 

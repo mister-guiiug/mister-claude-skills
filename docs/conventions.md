@@ -21,17 +21,19 @@ python scripts/new_skill.py ma-skill --description "Fait X. Utiliser quand l’u
 ```yaml
 ---
 name: ma-skill
-version: 1.0.0
-updated: 2026-08-03
 description: Fait X. Utiliser quand l’utilisateur demande Y ou Z.
+metadata:
+  version: "1.0.0"
+  updated: "2026-08-03"
 ---
 ```
 
 Règles :
 
 - `name` en kebab-case minuscule, identique au nom du dossier.
-- `version` au format `x.y.z`. Incrémenter le correctif pour une reformulation, le mineur pour une nouvelle section ou un nouveau livrable, le majeur si le périmètre de la skill change.
-- `updated` au format `AAAA-MM-JJ`, mis à jour à chaque modification du `SKILL.md`.
+- Au premier niveau, seulement `name`, `description`, `license`, `compatibility`, `metadata` et `allowed-tools` : claude.ai et l’API Skills refusent toute autre clé, alors que Claude Code l’ignore sans rien dire. Le validateur en fait une erreur.
+- `metadata.version` au format `x.y.z`. Incrémenter le correctif pour une reformulation, le mineur pour une nouvelle section ou un nouveau livrable, le majeur si le périmètre de la skill change.
+- `metadata.updated` au format `AAAA-MM-JJ`, mis à jour à chaque modification du `SKILL.md`.
 - `description` en une seule ligne, elle sert à deux choses : dire ce que fait la skill et dire quand la déclencher. C’est le seul élément que Claude lit pour choisir une skill, le corps du `SKILL.md` n’est chargé qu’après sélection.
 - Ne pas utiliser ` : ` dans la `description` sans guillemets, la valeur devient un YAML invalide et la description est ignorée. Écrire une virgule, ou entourer la valeur de guillemets doubles.
 - Inclure les mots que l’utilisateur emploiera réellement : `photo de profil`, `abstract`, `ATS`, `radar technologique`, `headline`.

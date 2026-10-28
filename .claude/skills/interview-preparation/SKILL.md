@@ -1,8 +1,9 @@
 ---
 name: interview-preparation
-version: 1.0.0
-updated: 2026-08-03
 description: Prépare un entretien en construisant les réponses aux questions probables, les récits STAR à l’oral, les questions à poser et les objections à anticiper. Utiliser quand l’utilisateur passe un entretien, prépare un oral technique ou RH, veut anticiper les questions d’un hiring manager, travailler son pitch de présentation ou répondre à une objection sur son parcours.
+metadata:
+  version: "1.0.0"
+  updated: "2026-08-03"
 ---
 
 # Interview Preparation
