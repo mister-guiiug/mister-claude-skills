@@ -3,7 +3,7 @@
 ## Structure d’une skill
 
 ```text
-.claude/skills/<nom-kebab-case>/
+plugins/career-skills/skills/<nom-kebab-case>/
   SKILL.md                        obligatoire
   references/quality-checklist.md conseillé, spécifique au domaine
   references/example-output.md    conseillé, exemple fictif signalé comme tel

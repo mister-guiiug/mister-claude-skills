@@ -21,3 +21,22 @@ jobs:
 
       - name: Valider la structure des skills
         run: python scripts/validate_structure.py --strict
+
+  plugin:
+    # Le schéma complet de la place de marché et du plugin, tel que Claude Code
+    # le lit. Le validateur Python ne contrôle que leur cohérence entre eux.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      - name: Installer Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Valider la place de marché et le plugin
+        run: |
+          claude plugin validate . --strict
+          claude plugin validate plugins/career-skills --strict

@@ -1,5 +1,6 @@
 # Installe les skills du dépôt dans le dossier utilisateur Claude.
 # Usage : powershell -ExecutionPolicy Bypass -File scripts/install.ps1 [-Destination <chemin>]
+# Sans objet si le plugin career-skills est installé : les skills seraient en double.
 param(
     [string]$Destination = (Join-Path $env:USERPROFILE ".claude\skills")
 )
@@ -7,7 +8,7 @@ param(
 $ErrorActionPreference = "Stop"
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
-$sourceDir = Join-Path $repoRoot ".claude\skills"
+$sourceDir = Join-Path $repoRoot "plugins\career-skills\skills"
 
 if (-not (Test-Path $sourceDir)) {
     Write-Error "Dossier source introuvable : $sourceDir"

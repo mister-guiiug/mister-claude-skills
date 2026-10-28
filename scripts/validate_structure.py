@@ -10,12 +10,18 @@ Sans dépendance externe. Utilisation :
 from __future__ import annotations
 
 import argparse
+import json
 import re
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SKILLS_DIR = ROOT / ".claude" / "skills"
+MARKETPLACE_FILE = ROOT / ".claude-plugin" / "marketplace.json"
+PLUGIN_DIR = ROOT / "plugins" / "career-skills"
+SKILLS_DIR = PLUGIN_DIR / "skills"
+CHANGELOG_FILE = ROOT / "CHANGELOG.md"
+RESERVED_PLUGIN_PREFIXES = ("claude-", "anthropic-")
+RELEASE_HEADING = re.compile(r"^## \[(\d+\.\d+\.\d+)\]", re.M)
 
 NAME_PATTERN = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 VERSION_PATTERN = re.compile(r"^\d+\.\d+\.\d+$")
@@ -212,6 +218,54 @@ def check_skill(skill_dir: Path, report: Report) -> str | None:
     return name
 
 
+def read_json(path: Path, report: Report) -> dict | None:
+    location = path.relative_to(ROOT).as_posix()
+    if not path.exists():
+        report.error(f"{location} : fichier absent")
+        return None
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as error:
+        report.error(f"{location} : JSON invalide, {error}")
+        return None
+
+
+def check_plugin(report: Report) -> None:
+    """La place de marché, le manifeste du plugin et leur version.
+
+    `claude plugin validate`, en CI, contrôle le schéma complet ; ici, ce qu'il
+    ne sait pas : la cohérence entre les deux fichiers et avec le CHANGELOG.
+    """
+    marketplace = read_json(MARKETPLACE_FILE, report)
+    if marketplace is None:
+        return
+    entries = marketplace.get("plugins") or []
+    if not marketplace.get("owner") or not entries:
+        report.error(".claude-plugin/marketplace.json : owner et plugins sont obligatoires")
+    for entry in entries:
+        name, source = entry.get("name", ""), entry.get("source", "")
+        if name.startswith(RESERVED_PLUGIN_PREFIXES):
+            report.error(f"plugin '{name}' : les préfixes claude- et anthropic- sont réservés")
+        if not source.startswith("./") or not (ROOT / source).is_dir():
+            report.error(f"plugin '{name}' : source '{source}' introuvable dans le dépôt")
+            continue
+        manifest = read_json(ROOT / source / ".claude-plugin" / "plugin.json", report)
+        if manifest is None:
+            continue
+        if manifest.get("name") != name:
+            report.error(f"plugin '{name}' : plugin.json porte le nom '{manifest.get('name')}'")
+        version = manifest.get("version", "")
+        releases = RELEASE_HEADING.findall(CHANGELOG_FILE.read_text(encoding="utf-8"))
+        if not VERSION_PATTERN.match(version):
+            report.error(f"plugin '{name}' : version '{version}' non conforme au format x.y.z")
+        elif not releases or releases[0] != version:
+            report.error(
+                f"plugin '{name}' : version {version} différente de la dernière version du CHANGELOG "
+                f"({releases[0] if releases else 'aucune'}) ; les utilisateurs restent sur la "
+                "version du manifeste tant qu'elle ne change pas"
+            )
+
+
 def section_text(text: str, heading: str) -> str | None:
     """Retourne le texte d'une section `## ...`, sans son titre, ou None si elle manque."""
     lines = text.splitlines()
@@ -290,6 +344,7 @@ def main() -> int:
         if name:
             names.append(name)
 
+    check_plugin(report)
     check_duplicate_inputs(skill_dirs, report)
     check_indexes(names, report)
 

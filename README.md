@@ -5,13 +5,16 @@ Ce dépôt fournit une structure complète de skills Claude pour améliorer un C
 ## Structure
 
 ```text
-.claude/
-  skills/
-    <nom-de-la-skill>/
-      SKILL.md
-      references/quality-checklist.md
-      references/example-output.md
-      templates/prompt-template.md
+.claude-plugin/marketplace.json        place de marché Claude Code
+plugins/
+  career-skills/
+    .claude-plugin/plugin.json         le plugin, sa version
+    skills/
+      <nom-de-la-skill>/
+        SKILL.md
+        references/quality-checklist.md
+        references/example-output.md
+        templates/prompt-template.md
 docs/
 examples/
 scripts/
@@ -22,11 +25,22 @@ scripts/
 
 ## Installation
 
-### Option 1 - Dépôt projet Claude Code
+### Option 1 - Plugin Claude Code, conseillé
 
-Copier le dossier `.claude/skills` dans le dépôt où Claude Code est utilisé.
+Dans Claude Code :
 
-### Option 2 - Installation utilisateur
+```text
+/plugin marketplace add mister-guiiug/mister-claude-skills
+/plugin install career-skills@mister-guiiug
+```
+
+Claude choisit la skill d’après sa description. Pour en appeler une explicitement, la préfixer du nom du plugin, par exemple `/career-skills:cv-optimizer`. Une nouvelle version du plugin arrive avec chaque version de ce dépôt, voir [CHANGELOG.md](CHANGELOG.md).
+
+### Option 2 - Dépôt projet Claude Code
+
+Copier le dossier `plugins/career-skills/skills` dans le dossier `.claude/skills` du dépôt où Claude Code est utilisé.
+
+### Option 3 - Installation utilisateur, sans plugin
 
 Script d’installation, macOS et Linux :
 
@@ -40,16 +54,20 @@ Script d’installation, Windows :
 powershell -ExecutionPolicy Bypass -File scripts/install.ps1
 ```
 
-Les deux scripts remplacent toute skill du même nom déjà présente dans le dossier cible.
+Les deux scripts remplacent toute skill du même nom déjà présente dans le dossier cible. Ne pas les combiner avec le plugin : les skills seraient en double.
 
 Installation manuelle :
 
 ```bash
 mkdir -p ~/.claude/skills
-cp -R .claude/skills/* ~/.claude/skills/
+cp -R plugins/career-skills/skills/* ~/.claude/skills/
 ```
 
 Sur Windows, `~/.claude` correspond généralement à `%USERPROFILE%\.claude`.
+
+### Hors de Claude Code
+
+Chaque dossier de skill est aussi importable sur claude.ai ou par l’API Skills : son frontmatter n’utilise que les clés qu’ils acceptent (`name`, `description`, `metadata`), ce que le validateur contrôle.
 
 ## Utilisation
 
@@ -122,6 +140,8 @@ Je veux être plus visible dans mon domaine, je ne sais pas par où commencer.
 | `python scripts/validate_structure.py`                         | Valide frontmatter, nommage, version, sections, fichiers annexes et règle sans em dash |
 | `python scripts/validate_structure.py --strict`                | Même validation, les avertissements deviennent bloquants                               |
 | `python scripts/new_skill.py <nom-kebab-case>`                 | Crée le squelette complet d’une nouvelle skill                                         |
+| `claude plugin validate . --strict`                            | Valide la place de marché, rejoué en CI                                                |
+| `claude plugin validate plugins/career-skills --strict`        | Valide le plugin et ses skills, rejoué en CI                                           |
 | `bash scripts/install.sh`                                      | Installe les skills dans `~/.claude/skills`                                            |
 | `powershell -ExecutionPolicy Bypass -File scripts/install.ps1` | Installe les skills sous Windows                                                       |
 
@@ -143,6 +163,8 @@ Les conventions détaillées sont dans [docs/conventions.md](docs/conventions.md
 - Anthropic, `anthropics/skills`, dépôt public de démonstration des Agent Skills : https://github.com/anthropics/skills
 - Anthropic, `The Complete Guide to Building Skills for Claude`, guide indiquant qu’une skill contient un dossier avec `SKILL.md`, et éventuellement `scripts/`, `references/` et `assets/` : https://resources.anthropic.com/hubfs/The-Complete-Guide-to-Building-Skill-for-Claude.pdf?hsLang=en
 - Anthropic Claude Code Docs, `.claude` directory, documentation sur l’emplacement `.claude/skills` : https://code.claude.com/docs/en/claude-directory
+- Anthropic Claude Code Docs, skills, fichiers annexes et frontmatter : https://code.claude.com/docs/en/skills
+- Anthropic Claude Code Docs, création d’une place de marché de plugins : https://code.claude.com/docs/en/plugins/create-marketplace
 
 ## Avertissement
 

@@ -4,6 +4,13 @@ Toutes les évolutions notables de ce dépôt. Le format suit une logique proche
 
 ## [Non publié]
 
+## [0.5.0] - 2026-10-28
+
+### Ajouté
+
+- Le dépôt est une place de marché de plugins Claude Code. Le plugin `career-skills` porte les 19 skills, désormais rangées dans `plugins/career-skills/skills/` : `/plugin marketplace add mister-guiiug/mister-claude-skills`, puis `/plugin install career-skills@mister-guiiug`. Sa version suit celle de ce CHANGELOG, et le validateur fait une erreur si elles divergent : un utilisateur reste sur la version du manifeste tant qu’elle ne change pas. Les scripts d’installation restent, pour une installation sans plugin.
+- CI : `claude plugin validate --strict` sur la place de marché et sur le plugin.
+
 ### Modifié
 
 - CI : permissions du workflow en lecture seule (`contents: read`), ce qui ferme l’alerte CodeQL `actions/missing-workflow-permissions`. Le validateur y tourne en `--strict`, comme `docs/conventions.md` le demande avant chaque commit.
