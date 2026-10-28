@@ -2,8 +2,8 @@
 name: interview-preparation
 description: Prépare un entretien en construisant les réponses aux questions probables, les récits STAR à l’oral, les questions à poser et les objections à anticiper. Utiliser quand l’utilisateur passe un entretien, prépare un oral technique ou RH, veut anticiper les questions d’un hiring manager, travailler son pitch de présentation ou répondre à une objection sur son parcours.
 metadata:
-  version: "1.0.0"
-  updated: "2026-08-03"
+  version: "1.1.0"
+  updated: "2026-10-28"
 ---
 
 # Interview Preparation
@@ -100,3 +100,11 @@ Toujours produire :
 - Les zones sans preuve sont-elles traitées honnêtement plutôt que masquées ?
 - Les informations confidentielles sont-elles neutralisées ?
 - Les questions à poser montrent-elles une compréhension réelle du contexte ?
+
+## Ressources
+
+Ces fichiers complètent cette page. Les lire au moment indiqué :
+
+- [references/example-output.md](references/example-output.md) : exemple fictif du livrable. Le lire avant de rédiger, pour le format, le ton et le niveau de détail attendus.
+- [references/quality-checklist.md](references/quality-checklist.md) : contrôles détaillés. Les passer avant de livrer, en plus de la section `Checklist qualité avant réponse`.
+- [templates/prompt-template.md](templates/prompt-template.md) : modèle de demande. Le proposer à l’utilisateur quand des données d’entrée manquent, pour qu’il le complète.

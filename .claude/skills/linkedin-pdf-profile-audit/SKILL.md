@@ -2,8 +2,8 @@
 name: linkedin-pdf-profile-audit
 description: Audite un profil LinkedIn à partir de son export PDF, le sien ou celui d’un tiers, section par section, avec diagnostic priorisé et reformulations prêtes à coller. Utiliser quand l’utilisateur fournit un PDF exporté depuis LinkedIn, un fichier Profile.pdf, demande un audit complet de profil, évalue une candidature, accompagne quelqu’un sur son profil ou compare plusieurs profils.
 metadata:
-  version: "1.1.1"
-  updated: "2026-08-03"
+  version: "1.2.0"
+  updated: "2026-10-28"
 ---
 
 # LinkedIn PDF Profile Audit
@@ -240,3 +240,12 @@ Toujours produire :
 - Le nombre de P1 reste-t-il inférieur ou égal à cinq ?
 - Les informations internes et clients sont-elles neutralisées ?
 - L’orientation vers la skill suivante est-elle explicite ?
+
+## Ressources
+
+Ces fichiers complètent cette page. Les lire au moment indiqué :
+
+- [references/example-output.md](references/example-output.md) : exemple fictif du livrable. Le lire avant de rédiger, pour le format, le ton et le niveau de détail attendus.
+- [references/quality-checklist.md](references/quality-checklist.md) : contrôles détaillés. Les passer avant de livrer, en plus de la section `Checklist qualité avant réponse`.
+- [templates/prompt-template.md](templates/prompt-template.md) : modèle de demande. Le proposer à l’utilisateur quand des données d’entrée manquent, pour qu’il le complète.
+- [references/pdf-export-map.md](references/pdf-export-map.md) : comment obtenir l’export PDF, sa structure fixe et les points techniques d’extraction. Le lire avant d’extraire le texte du PDF et avant tout constat d’absence d’une section.

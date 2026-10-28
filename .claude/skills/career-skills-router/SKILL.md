@@ -2,8 +2,8 @@
 name: career-skills-router
 description: Oriente une demande carrière, LinkedIn, CV ou personal branding vers la ou les skills adaptées du dépôt, et propose l’enchaînement de travail. Utiliser quand la demande couvre plusieurs sujets, quand l’utilisateur ne sait pas par où commencer, quand il demande quelle skill utiliser, ou quand aucune skill spécifique ne s’impose clairement.
 metadata:
-  version: "1.0.0"
-  updated: "2026-08-03"
+  version: "1.1.0"
+  updated: "2026-10-28"
 ---
 
 # Career Skills Router
@@ -104,3 +104,11 @@ Toujours produire :
 - L’enchaînement est-il ordonné de la matière vers la mise en forme ?
 - Le nombre de questions posées reste-t-il inférieur ou égal à deux ?
 - L’utilisateur sait-il quoi préparer pour l’étape suivante ?
+
+## Ressources
+
+Ces fichiers complètent cette page. Les lire au moment indiqué :
+
+- [references/example-output.md](references/example-output.md) : exemple fictif du livrable. Le lire avant de rédiger, pour le format, le ton et le niveau de détail attendus.
+- [references/quality-checklist.md](references/quality-checklist.md) : contrôles détaillés. Les passer avant de livrer, en plus de la section `Checklist qualité avant réponse`.
+- [templates/prompt-template.md](templates/prompt-template.md) : modèle de demande. Le proposer à l’utilisateur quand des données d’entrée manquent, pour qu’il le complète.

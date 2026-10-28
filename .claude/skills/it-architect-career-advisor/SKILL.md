@@ -2,8 +2,8 @@
 name: it-architect-career-advisor
 description: Aide à positionner une trajectoire d’Architecte IT vers Lead Architect, Enterprise Architect ou Head of Integration Platforms. Utiliser quand l’utilisateur s’interroge sur son évolution de carrière, un changement de poste, une négociation de rôle, un plan de montée en compétences ou un choix entre filière technique et management.
 metadata:
-  version: "1.0.0"
-  updated: "2026-08-03"
+  version: "1.1.0"
+  updated: "2026-10-28"
 ---
 
 # IT Architect Career Advisor
@@ -81,3 +81,11 @@ Toujours produire :
 - Le message est-il compréhensible par l’audience cible ?
 - Le contenu évite-t-il les formulations trop génériques ?
 - Les zones incertaines sont-elles marquées clairement ?
+
+## Ressources
+
+Ces fichiers complètent cette page. Les lire au moment indiqué :
+
+- [references/example-output.md](references/example-output.md) : exemple fictif du livrable. Le lire avant de rédiger, pour le format, le ton et le niveau de détail attendus.
+- [references/quality-checklist.md](references/quality-checklist.md) : contrôles détaillés. Les passer avant de livrer, en plus de la section `Checklist qualité avant réponse`.
+- [templates/prompt-template.md](templates/prompt-template.md) : modèle de demande. Le proposer à l’utilisateur quand des données d’entrée manquent, pour qu’il le complète.

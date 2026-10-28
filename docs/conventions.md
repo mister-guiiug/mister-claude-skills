@@ -48,6 +48,9 @@ Règles :
 6. `## Livrables spécifiques`
 7. `## Format de sortie recommandé`
 8. `## Checklist qualité avant réponse`
+9. `## Ressources`
+
+La section `Ressources` cite chaque fichier de `references/` et de `templates/`, avec le moment où le lire. Claude ne lit un fichier annexe que si `SKILL.md` le lui indique : un fichier non cité ne sert à rien, et le validateur en fait une erreur.
 
 Les sections intermédiaires spécifiques au domaine sont libres, voir `technology-watch` avec son format radar ou `linkedin-profile-photo-prompt` avec sa structure de prompt.
 

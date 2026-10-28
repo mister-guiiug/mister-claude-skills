@@ -2,8 +2,8 @@
 name: executive-content-writer
 description: Rédige des contenus professionnels LinkedIn, newsletters ou messages courts avec un ton exécutif, clair et actionnable. Utiliser quand l’utilisateur veut écrire un message à un dirigeant, une note de synthèse, une newsletter, un mail de candidature ou un message de mise en relation.
 metadata:
-  version: "1.0.0"
-  updated: "2026-08-03"
+  version: "1.1.0"
+  updated: "2026-10-28"
 ---
 
 # Executive Content Writer
@@ -81,3 +81,11 @@ Toujours produire :
 - Le message est-il compréhensible par l’audience cible ?
 - Le contenu évite-t-il les formulations trop génériques ?
 - Les zones incertaines sont-elles marquées clairement ?
+
+## Ressources
+
+Ces fichiers complètent cette page. Les lire au moment indiqué :
+
+- [references/example-output.md](references/example-output.md) : exemple fictif du livrable. Le lire avant de rédiger, pour le format, le ton et le niveau de détail attendus.
+- [references/quality-checklist.md](references/quality-checklist.md) : contrôles détaillés. Les passer avant de livrer, en plus de la section `Checklist qualité avant réponse`.
+- [templates/prompt-template.md](templates/prompt-template.md) : modèle de demande. Le proposer à l’utilisateur quand des données d’entrée manquent, pour qu’il le complète.

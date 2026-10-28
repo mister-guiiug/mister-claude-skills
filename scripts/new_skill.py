@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import argparse
 import re
+from datetime import date
 import sys
 from pathlib import Path
 
@@ -75,6 +76,14 @@ Toujours produire :
 - Les informations sensibles sont-elles neutralisées ?
 - Les chiffres proviennent-ils de l’utilisateur ?
 - Les zones incertaines sont-elles marquées clairement ?
+
+## Ressources
+
+Ces fichiers complètent cette page. Les lire au moment indiqué :
+
+- [references/example-output.md](references/example-output.md) : exemple fictif du livrable. Le lire avant de rédiger, pour le format, le ton et le niveau de détail attendus.
+- [references/quality-checklist.md](references/quality-checklist.md) : contrôles détaillés. Les passer avant de livrer, en plus de la section `Checklist qualité avant réponse`.
+- [templates/prompt-template.md](templates/prompt-template.md) : modèle de demande. Le proposer à l’utilisateur quand des données d’entrée manquent, pour qu’il le complète.
 """
 
 CHECKLIST_TEMPLATE = """# Quality checklist
@@ -156,8 +165,8 @@ def main() -> int:
     )
     parser.add_argument(
         "--updated",
-        default="[à compléter]",
-        help="date de dernière mise à jour au format AAAA-MM-JJ",
+        default=date.today().isoformat(),
+        help="date de dernière mise à jour au format AAAA-MM-JJ, aujourd’hui par défaut",
     )
     args = parser.parse_args()
 

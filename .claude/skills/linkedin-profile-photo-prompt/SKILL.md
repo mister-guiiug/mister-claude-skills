@@ -2,8 +2,8 @@
 name: linkedin-profile-photo-prompt
 description: Trie des photos candidates, diagnostique ce qui est corrigeable et génère des prompts prêts à coller pour une photo de profil LinkedIn et une bannière. Utiliser quand l’utilisateur parle de photo de profil, avatar, portrait professionnel, headshot, bannière LinkedIn, image de couverture, identité visuelle LinkedIn, ou quand il fournit une ou plusieurs photos à évaluer.
 metadata:
-  version: "1.2.1"
-  updated: "2026-08-03"
+  version: "1.3.0"
+  updated: "2026-10-28"
 ---
 
 # LinkedIn Profile Photo Prompt
@@ -236,3 +236,13 @@ Toujours produire :
 - Les attributs non fournis sont-ils marqués `[à compléter]` plutôt que devinés ?
 - Les contrôles sur le résultat sont-ils ordonnés par probabilité d’échec ?
 - L’utilisateur est-il informé des limites d’une image générée sur un réseau professionnel ?
+
+## Ressources
+
+Ces fichiers complètent cette page. Les lire au moment indiqué :
+
+- [references/example-output.md](references/example-output.md) : exemple fictif du livrable. Le lire avant de rédiger, pour le format, le ton et le niveau de détail attendus.
+- [references/quality-checklist.md](references/quality-checklist.md) : contrôles détaillés. Les passer avant de livrer, en plus de la section `Checklist qualité avant réponse`.
+- [templates/prompt-template.md](templates/prompt-template.md) : modèle de demande. Le proposer à l’utilisateur quand des données d’entrée manquent, pour qu’il le complète.
+- [references/photo-guidelines.md](references/photo-guidelines.md) : formats LinkedIn et repères de production visuelle. Le lire avant de recommander un cadrage, un format ou un fond.
+- [templates/image-prompt-template.md](templates/image-prompt-template.md) : squelettes de prompts image et liste consolidée des négatifs. Partir de ce fichier pour écrire chaque prompt image.

@@ -2,8 +2,8 @@
 name: networking-outreach
 description: Rédige des messages de mise en relation, d’approche directe, de relance et de remerciement, courts et non intrusifs, adaptés au destinataire. Utiliser quand l’utilisateur veut contacter quelqu’un sur LinkedIn, envoyer une demande de connexion, approcher un recruteur ou un hiring manager, relancer après un entretien, demander un échange informel ou entretenir son réseau.
 metadata:
-  version: "1.0.0"
-  updated: "2026-08-03"
+  version: "1.1.0"
+  updated: "2026-10-28"
 ---
 
 # Networking Outreach
@@ -95,3 +95,11 @@ Toujours produire :
 - Le message évite-t-il la flatterie et la fausse proximité ?
 - La relance apporte-t-elle un élément nouveau plutôt qu’une répétition ?
 - Aucune information interne ou confidentielle n’est exposée.
+
+## Ressources
+
+Ces fichiers complètent cette page. Les lire au moment indiqué :
+
+- [references/example-output.md](references/example-output.md) : exemple fictif du livrable. Le lire avant de rédiger, pour le format, le ton et le niveau de détail attendus.
+- [references/quality-checklist.md](references/quality-checklist.md) : contrôles détaillés. Les passer avant de livrer, en plus de la section `Checklist qualité avant réponse`.
+- [templates/prompt-template.md](templates/prompt-template.md) : modèle de demande. Le proposer à l’utilisateur quand des données d’entrée manquent, pour qu’il le complète.

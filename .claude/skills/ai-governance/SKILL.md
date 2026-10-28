@@ -2,8 +2,8 @@
 name: ai-governance
 description: Aide à cadrer la gouvernance IA, ses principes, rôles, risques, conformité, usages autorisés, contrôles et trajectoire d’adoption responsable. Utiliser quand l’utilisateur demande une politique d’usage de l’IA, un cadre de gouvernance IA, une grille de risques, un comité IA, une charte IA générative ou une trajectoire de conformité.
 metadata:
-  version: "1.0.0"
-  updated: "2026-08-03"
+  version: "1.1.0"
+  updated: "2026-10-28"
 ---
 
 # AI Governance
@@ -125,3 +125,10 @@ Toujours produire :
 6. Recommandations actionnables.
 7. Points à vérifier ou compléter.
 
+## Ressources
+
+Ces fichiers complètent cette page. Les lire au moment indiqué :
+
+- [references/example-output.md](references/example-output.md) : exemple fictif du livrable. Le lire avant de rédiger, pour le format, le ton et le niveau de détail attendus.
+- [references/quality-checklist.md](references/quality-checklist.md) : contrôles détaillés. Les passer avant de livrer, en plus de la section `Checklist qualité avant réponse`.
+- [templates/prompt-template.md](templates/prompt-template.md) : modèle de demande. Le proposer à l’utilisateur quand des données d’entrée manquent, pour qu’il le complète.

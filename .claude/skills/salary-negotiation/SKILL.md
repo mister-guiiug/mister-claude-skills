@@ -2,8 +2,8 @@
 name: salary-negotiation
 description: Prépare une négociation de rémunération, package, contre-offre ou augmentation, avec arguments factuels, fourchette argumentée et scénarios de réponse. Utiliser quand l’utilisateur parle de salaire, package, prime, contre-offre, augmentation, promotion, proposition d’embauche ou conditions contractuelles.
 metadata:
-  version: "1.0.0"
-  updated: "2026-08-03"
+  version: "1.1.0"
+  updated: "2026-10-28"
 ---
 
 # Salary Negotiation
@@ -96,3 +96,11 @@ Toujours produire :
 - Le seuil de refus est explicite.
 - Les formulations restent professionnelles et n’engagent pas de menace non crédible.
 - La formalisation écrite est rappelée.
+
+## Ressources
+
+Ces fichiers complètent cette page. Les lire au moment indiqué :
+
+- [references/example-output.md](references/example-output.md) : exemple fictif du livrable. Le lire avant de rédiger, pour le format, le ton et le niveau de détail attendus.
+- [references/quality-checklist.md](references/quality-checklist.md) : contrôles détaillés. Les passer avant de livrer, en plus de la section `Checklist qualité avant réponse`.
+- [templates/prompt-template.md](templates/prompt-template.md) : modèle de demande. Le proposer à l’utilisateur quand des données d’entrée manquent, pour qu’il le complète.

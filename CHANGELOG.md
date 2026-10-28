@@ -12,6 +12,10 @@ Toutes les évolutions notables de ce dépôt. Le format suit une logique proche
 
 - Frontmatter des 19 skills : `version` et `updated` passent sous `metadata`. claude.ai et l’API Skills n’acceptent au premier niveau que `name`, `description`, `license`, `compatibility`, `metadata` et `allowed-tools`, et refusent la skill pour toute autre clé ; Claude Code les ignorait sans rien dire. Le validateur en fait une erreur, `new_skill.py` et `docs/conventions.md` suivent.
 
+- Les 19 skills ont une section `Ressources` qui cite chaque fichier de `references/` et de `templates/`, avec le moment où le lire. Seule `linkedin-profile-photo-prompt` en citait un : Claude ne lit un fichier annexe que si `SKILL.md` le lui indique, si bien que 57 fichiers ne servaient pas. Le validateur fait une erreur de tout fichier annexe non cité.
+- Chaque skill passe à la version mineure suivante (section `Ressources`), datée du 2026-10-28.
+- `new_skill.py` date la skill du jour par défaut, au lieu d’un `[à compléter]` que le validateur refusait.
+
 ### Maintenance depuis 0.4.2
 
 Sans changement des skills : préréglage Renovate de la famille (#4), actions GitHub en v7 (#6), Python 3.14 (#7), `AGENTS.md` (#8), bouton Sponsor (#9), README à jour (#10).

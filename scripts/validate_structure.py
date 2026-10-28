@@ -34,7 +34,10 @@ REQUIRED_SECTIONS = [
     "## Méthode",
     "## Format de sortie recommandé",
     "## Checklist qualité avant réponse",
+    "## Ressources",
 ]
+
+ANNEX_FOLDERS = ["references", "templates"]
 
 RECOMMENDED_FILES = [
     Path("references") / "quality-checklist.md",
@@ -186,6 +189,16 @@ def check_skill(skill_dir: Path, report: Report) -> str | None:
     for relative_file in RECOMMENDED_FILES:
         if not (skill_dir / relative_file).exists():
             report.warn(f"{rel} : fichier conseillé absent, {relative_file.as_posix()}")
+
+    # Claude ne lit un fichier annexe que si SKILL.md lui dit quand le faire.
+    for folder in ANNEX_FOLDERS:
+        for annex in sorted(p for p in (skill_dir / folder).glob("*") if p.is_file()):
+            relative = annex.relative_to(skill_dir).as_posix()
+            if relative not in text:
+                report.error(
+                    f"{rel}/SKILL.md : {relative} n'est cité nulle part, Claude ne le lira pas ; "
+                    "le citer dans la section Ressources en disant quand le lire"
+                )
 
     for markdown_file in sorted(skill_dir.rglob("*.md")):
         content = markdown_file.read_text(encoding="utf-8")
