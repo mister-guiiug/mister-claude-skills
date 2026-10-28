@@ -25,13 +25,12 @@ metadata:
 
 Demander ou utiliser si disponible :
 
-- Profil LinkedIn actuel ou sections existantes.
-- CV actuel ou expériences détaillées.
-- Rôle cible, audience cible ou objectif de visibilité.
-- 3 à 5 offres d’emploi cibles si optimisation recruteur ou ATS.
-- Réalisations vérifiables avec chiffres, dates, périmètre et outils.
-- Contraintes de ton : sobre, exécutif, technique, accessible, international.
-
+- Poste et niveau actuels : delivery, architecture solution, architecture transverse, gouvernance, stratégie.
+- Rôle visé, par exemple Lead Architect, Enterprise Architect ou Head of Platform, et horizon de temps.
+- Expériences et preuves de leadership : décisions, standards, arbitrages, influence transverse.
+- Contexte de l’entreprise : taille, organisation de l’architecture, postes ouverts.
+- Contraintes personnelles : mobilité, choix entre management et filière technique, formation.
+- Échéance à préparer : entretien annuel, entretien de mobilité ou de recrutement.
 
 ## Mission
 

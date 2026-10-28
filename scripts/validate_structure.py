@@ -39,6 +39,8 @@ REQUIRED_SECTIONS = [
 
 ANNEX_FOLDERS = ["references", "templates"]
 
+INPUTS_HEADING = "## Données d’entrée attendues"
+
 RECOMMENDED_FILES = [
     Path("references") / "quality-checklist.md",
     Path("references") / "example-output.md",
@@ -210,6 +212,34 @@ def check_skill(skill_dir: Path, report: Report) -> str | None:
     return name
 
 
+def section_text(text: str, heading: str) -> str | None:
+    """Retourne le texte d'une section `## ...`, sans son titre, ou None si elle manque."""
+    lines = text.splitlines()
+    if heading not in lines:
+        return None
+    start = lines.index(heading) + 1
+    end = next((i for i in range(start, len(lines)) if lines[i].startswith("## ")), len(lines))
+    return "\n".join(lines[start:end]).strip()
+
+
+def check_duplicate_inputs(skill_dirs: list[Path], report: Report) -> None:
+    """Deux skills qui demandent exactement les mêmes entrées en ont recopié la liste."""
+    by_block: dict[str, list[str]] = {}
+    for skill_dir in skill_dirs:
+        skill_file = skill_dir / "SKILL.md"
+        if not skill_file.exists():
+            continue
+        block = section_text(skill_file.read_text(encoding="utf-8"), INPUTS_HEADING)
+        if block:
+            by_block.setdefault(block, []).append(skill_dir.name)
+    for names in by_block.values():
+        if len(names) > 1:
+            report.warn(
+                f"section {INPUTS_HEADING[3:]} identique dans {', '.join(names)} : "
+                "adapter les entrées à chaque skill"
+            )
+
+
 def check_indexes(names: list[str], report: Report) -> None:
     for index_file in INDEX_FILES:
         path = ROOT / index_file
@@ -260,6 +290,7 @@ def main() -> int:
         if name:
             names.append(name)
 
+    check_duplicate_inputs(skill_dirs, report)
     check_indexes(names, report)
 
     for warning in report.warnings:

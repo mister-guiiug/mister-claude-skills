@@ -25,13 +25,12 @@ metadata:
 
 Demander ou utiliser si disponible :
 
-- Profil LinkedIn actuel ou sections existantes.
 - CV actuel ou expériences détaillées.
-- Rôle cible, audience cible ou objectif de visibilité.
-- 3 à 5 offres d’emploi cibles si optimisation recruteur ou ATS.
+- Rôle cible.
+- 3 à 5 offres d’emploi cibles si le CV doit être adapté à une offre ou passer un filtre ATS.
+- Profil LinkedIn actuel, pour vérifier la cohérence entre les deux.
 - Réalisations vérifiables avec chiffres, dates, périmètre et outils.
-- Contraintes de ton : sobre, exécutif, technique, accessible, international.
-
+- Contraintes de format : nombre de pages, langue, modèle imposé.
 
 ## Mission
 

@@ -25,12 +25,13 @@ metadata:
 
 Demander ou utiliser si disponible :
 
-- Objectif de la demande.
-- Audience cible : DSI, COMEX, architectes, RSSI, équipes produit, métiers, recruteurs.
-- Niveau de profondeur attendu : synthèse courte, note d’analyse, mémo de décision, plan d’action.
-- Périmètre : technologies, fournisseurs, plateformes, réglementations, cas d’usage, organisation.
-- Contraintes : confidentialité, sources autorisées, horizon temporel, format final.
-
+- Objectif : politique d’usage, cadre de gouvernance, grille de risques, comité IA ou trajectoire de conformité.
+- Contexte IA : IA générative, machine learning, agents, copilotes, solutions SaaS ou modèles internes.
+- Organisation : taille, secteur, parties prenantes déjà impliquées, gouvernance existante.
+- Cas d’usage connus, avec les données manipulées et leur degré d’autonomie.
+- Cadre réglementaire et politiques internes applicables, tels que l’utilisateur les connaît.
+- Audience du livrable : DSI, COMEX, RSSI, DPO, juridique, métiers.
+- Contraintes : confidentialité, horizon temporel, format final.
 
 ## Mission
 

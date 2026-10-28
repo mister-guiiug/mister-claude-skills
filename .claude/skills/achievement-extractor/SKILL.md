@@ -25,13 +25,12 @@ metadata:
 
 Demander ou utiliser si disponible :
 
-- Profil LinkedIn actuel ou sections existantes.
-- CV actuel ou expériences détaillées.
-- Rôle cible, audience cible ou objectif de visibilité.
-- 3 à 5 offres d’emploi cibles si optimisation recruteur ou ATS.
-- Réalisations vérifiables avec chiffres, dates, périmètre et outils.
-- Contraintes de ton : sobre, exécutif, technique, accessible, international.
-
+- Notes de projet, tâches ou responsabilités telles que l’utilisateur les décrit.
+- Pour chaque projet : contexte, problème, action personnelle, résultat.
+- Métriques disponibles et leur source : coût, délai, risque, qualité, adoption, disponibilité, performance.
+- Périmètre et dates : taille d’équipe, budget, nombre d’applications ou d’utilisateurs, durée.
+- Usage visé : CV, profil LinkedIn, entretien annuel ou entretien de recrutement.
+- Rôle cible, si les réalisations doivent servir une candidature.
 
 ## Mission
 

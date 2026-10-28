@@ -25,13 +25,11 @@ metadata:
 
 Demander ou utiliser si disponible :
 
-- Profil LinkedIn actuel ou sections existantes.
-- CV actuel ou expériences détaillées.
-- Rôle cible, audience cible ou objectif de visibilité.
-- 3 à 5 offres d’emploi cibles si optimisation recruteur ou ATS.
-- Réalisations vérifiables avec chiffres, dates, périmètre et outils.
-- Contraintes de ton : sobre, exécutif, technique, accessible, international.
-
+- Document à évaluer : CV, profil LinkedIn ou message.
+- Poste ou offre visés.
+- Lecteur à simuler : recruteur, hiring manager ou décideur.
+- Marché : secteur, taille d’entreprise, pays.
+- Doutes de l’utilisateur sur son document, s’il en a.
 
 ## Mission
 

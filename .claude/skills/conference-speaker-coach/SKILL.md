@@ -25,13 +25,12 @@ metadata:
 
 Demander ou utiliser si disponible :
 
-- Profil LinkedIn actuel ou sections existantes.
-- CV actuel ou expériences détaillées.
-- Rôle cible, audience cible ou objectif de visibilité.
-- 3 à 5 offres d’emploi cibles si optimisation recruteur ou ATS.
-- Réalisations vérifiables avec chiffres, dates, périmètre et outils.
-- Contraintes de ton : sobre, exécutif, technique, accessible, international.
-
+- Événement visé : nom, thème, format, durée de l’intervention et consignes de soumission.
+- Sujet et message principal que l’intervention doit faire passer.
+- Audience : rôles, niveau technique, attentes.
+- Expérience concrète à partager : projet, démonstration, retour d’expérience, chiffres vérifiables.
+- Bio existante, interventions passées et niveau d’exposition souhaité.
+- Contraintes de longueur pour le titre, l’abstract et la bio.
 
 ## Mission
 

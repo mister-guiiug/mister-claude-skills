@@ -25,12 +25,12 @@ metadata:
 
 Demander ou utiliser si disponible :
 
-- Objectif de la demande.
-- Audience cible : DSI, COMEX, architectes, RSSI, équipes produit, métiers, recruteurs.
-- Niveau de profondeur attendu : synthèse courte, note d’analyse, mémo de décision, plan d’action.
-- Périmètre : technologies, fournisseurs, plateformes, réglementations, cas d’usage, organisation.
-- Contraintes : confidentialité, sources autorisées, horizon temporel, format final.
-
+- Périmètre de veille : technologie, marché, fournisseur, standard, réglementation ou usage métier.
+- Horizon temporel : immédiat, 6, 12 ou 24 mois.
+- Sources fournies ou autorisées, et date de fraîcheur attendue.
+- Contexte de l’organisation : stratégie IT, technologies en place, contraintes de sécurité.
+- Décision que la veille doit éclairer.
+- Audience et format : note d’une page, radar, synthèse exécutive pour DSI ou COMEX.
 
 ## Mission
 

@@ -14,6 +14,7 @@ Toutes les évolutions notables de ce dépôt. Le format suit une logique proche
 
 - Les 19 skills ont une section `Ressources` qui cite chaque fichier de `references/` et de `templates/`, avec le moment où le lire. Seule `linkedin-profile-photo-prompt` en citait un : Claude ne lit un fichier annexe que si `SKILL.md` le lui indique, si bien que 57 fichiers ne servaient pas. Le validateur fait une erreur de tout fichier annexe non cité.
 - Chaque skill passe à la version mineure suivante (section `Ressources`), datée du 2026-10-28.
+- `Données d’entrée attendues` réécrite dans 12 skills qui la partageaient au caractère près : 10 skills sur un même bloc, `ai-governance` et `technology-watch` sur un autre. Le coach de conférencier demandait ainsi « 3 à 5 offres d’emploi cibles », sans jamais demander le sujet, le public ni la durée de l’intervention. Chaque liste part désormais de la mission, de la méthode et des livrables de sa skill. Le validateur avertit quand deux skills ont le même bloc d’entrées.
 - `new_skill.py` date la skill du jour par défaut, au lieu d’un `[à compléter]` que le validateur refusait.
 
 ### Maintenance depuis 0.4.2

@@ -25,13 +25,12 @@ metadata:
 
 Demander ou utiliser si disponible :
 
-- Profil LinkedIn actuel ou sections existantes.
-- CV actuel ou expériences détaillées.
-- Rôle cible, audience cible ou objectif de visibilité.
-- 3 à 5 offres d’emploi cibles si optimisation recruteur ou ATS.
+- Profil actuel : headline, section About, expériences, compétences, section Featured.
+- Rôle cible ou audiences visées.
+- Mots-clés recherchés pour ce rôle, et 3 à 5 offres d’emploi d’exemple si disponibles.
 - Réalisations vérifiables avec chiffres, dates, périmètre et outils.
-- Contraintes de ton : sobre, exécutif, technique, accessible, international.
-
+- CV actuel, pour vérifier la cohérence entre les deux.
+- Langue du profil et contraintes de ton.
 
 ## Mission
 
