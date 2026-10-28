@@ -45,6 +45,8 @@ INDEX_FILES = [
     Path("docs") / "usage-guide.md",
 ]
 
+ROUTER_NAME = "career-skills-router"
+
 
 class Report:
     def __init__(self) -> None:
@@ -186,6 +188,15 @@ def check_indexes(names: list[str], report: Report) -> None:
         for name in names:
             if name not in content:
                 report.warn(f"{index_file.as_posix()} : skill '{name}' non référencée")
+
+    # La table d'orientation du routeur, que docs/conventions.md impose aussi de tenir à jour.
+    router = SKILLS_DIR / ROUTER_NAME / "SKILL.md"
+    if router.exists():
+        content = router.read_text(encoding="utf-8")
+        location = router.relative_to(ROOT).as_posix()
+        for name in names:
+            if name != ROUTER_NAME and f"`{name}`" not in content:
+                report.warn(f"{location} : skill '{name}' absente de la table d'orientation")
 
 
 def main() -> int:

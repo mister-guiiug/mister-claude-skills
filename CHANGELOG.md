@@ -4,6 +4,16 @@ Toutes les évolutions notables de ce dépôt. Le format suit une logique proche
 
 ## [Non publié]
 
+### Modifié
+
+- CI : permissions du workflow en lecture seule (`contents: read`), ce qui ferme l’alerte CodeQL `actions/missing-workflow-permissions`. Le validateur y tourne en `--strict`, comme `docs/conventions.md` le demande avant chaque commit.
+- `CLAUDE.md` importe `AGENTS.md` au lieu d’en recopier le texte : les règles n’existent plus qu’à un seul endroit.
+- Le validateur vérifie aussi la table d’orientation de `career-skills-router`, que les conventions imposent de tenir à jour au même titre que le README et le guide d’usage.
+
+### Maintenance depuis 0.4.2
+
+Sans changement des skills : préréglage Renovate de la famille (#4), actions GitHub en v7 (#6), Python 3.14 (#7), `AGENTS.md` (#8), bouton Sponsor (#9), README à jour (#10).
+
 ## [0.4.2] - 2026-08-03
 
 ### Modifié
