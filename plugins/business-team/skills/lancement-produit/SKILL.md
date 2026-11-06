@@ -39,7 +39,7 @@ Utiliser cette skill lorsque l’utilisateur veut :
 - faire travailler toute l’équipe business sur un même sujet ;
 - obtenir recherche, prix, fiche produit et risques dans un seul livrable.
 
-Pour une seule tâche, appeler directement l’agent concerné plutôt que cette skill.
+Pour une seule tâche, appeler directement l’agent concerné plutôt que cette skill. Si l’utilisateur se demande encore s’il doit se lancer, utiliser `etude-opportunite`.
 
 ## Méthode
 
