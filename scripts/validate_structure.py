@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Valide la structure des skills du dépôt.
+"""Valide la structure des plugins du dépôt, leurs skills et leurs agents.
+
+Chaque dossier de `plugins/` qui porte un `.claude-plugin/plugin.json` est un
+plugin. Il contient des skills (`skills/`), des agents (`agents/`), ou les deux.
 
 Sans dépendance externe. Utilisation :
 
@@ -17,9 +20,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 MARKETPLACE_FILE = ROOT / ".claude-plugin" / "marketplace.json"
-PLUGIN_DIR = ROOT / "plugins" / "career-skills"
-SKILLS_DIR = PLUGIN_DIR / "skills"
-EVALS_DIR = PLUGIN_DIR / "evals"
+PLUGINS_DIR = ROOT / "plugins"
+# Un plugin qui a son propre CHANGELOG.md y suit sa version ; sinon, celui de la racine.
 CHANGELOG_FILE = ROOT / "CHANGELOG.md"
 RESERVED_PLUGIN_PREFIXES = ("claude-", "anthropic-")
 RELEASE_HEADING = re.compile(r"^## \[(\d+\.\d+\.\d+)\]", re.M)
@@ -33,6 +35,8 @@ DESCRIPTION_MAX_LENGTH = 1024
 EM_DASH = "—"
 # Les seules clés de premier niveau qu'acceptent claude.ai et l'API Skills.
 PORTABLE_KEYS = {"name", "description", "license", "compatibility", "metadata", "allowed-tools"}
+# Clés d'un agent que Claude Code ignore quand l'agent vient d'un plugin.
+PLUGIN_AGENT_UNSUPPORTED_KEYS = {"hooks", "mcpServers", "permissionMode"}
 
 REQUIRED_SECTIONS = [
     "## Principes non négociables",
@@ -59,7 +63,9 @@ INDEX_FILES = [
     Path("docs") / "usage-guide.md",
 ]
 
-ROUTER_NAME = "career-skills-router"
+# Un plugin peut avoir un routeur, la skill `<plugin>-router`, dont la table
+# d'orientation doit citer toutes les autres skills du plugin.
+ROUTER_SUFFIX = "-router"
 
 
 class Report:
@@ -116,6 +122,57 @@ def raw_description_is_quoted(text: str) -> bool:
     return False
 
 
+def check_name_and_description(
+    location: str, expected_name: str, kind: str, fields: dict[str, str], text: str, report: Report
+) -> str | None:
+    """Contrôles communs aux skills et aux agents ; retourne le nom s'il est présent."""
+    name = fields.get("name")
+    description = fields.get("description")
+
+    if not name:
+        report.error(f"{location} : champ name manquant")
+    else:
+        if name != expected_name:
+            report.error(f"{location} : name '{name}' différent du nom de {kind} '{expected_name}'")
+        if not NAME_PATTERN.match(name):
+            report.error(f"{location} : name '{name}' doit être en kebab-case minuscule")
+        if len(name) > NAME_MAX_LENGTH:
+            report.error(f"{location} : name de {len(name)} caractères, maximum {NAME_MAX_LENGTH}")
+
+    if not description:
+        report.error(f"{location} : champ description manquant")
+    else:
+        if len(description) < DESCRIPTION_MIN_LENGTH:
+            report.warn(
+                f"{location} : description de {len(description)} caractères, "
+                f"minimum conseillé {DESCRIPTION_MIN_LENGTH}"
+            )
+        if len(description) > DESCRIPTION_MAX_LENGTH:
+            report.error(
+                f"{location} : description de {len(description)} caractères, "
+                f"maximum {DESCRIPTION_MAX_LENGTH}"
+            )
+        if " : " in description and not raw_description_is_quoted(text):
+            report.error(
+                f"{location} : description contenant ' : ' sans guillemets, "
+                "YAML invalide, remplacer le deux-points ou entourer la valeur de guillemets"
+            )
+        if "utiliser quand" not in description.lower():
+            report.warn(
+                f"{location} : description sans condition de déclenchement, "
+                "ajouter une formulation du type 'Utiliser quand ...'"
+            )
+    return name
+
+
+def check_em_dash(markdown_file: Path, report: Report) -> None:
+    content = markdown_file.read_text(encoding="utf-8")
+    for line_number, line in enumerate(content.splitlines(), start=1):
+        if EM_DASH in line:
+            location = markdown_file.relative_to(ROOT).as_posix()
+            report.error(f"{location}:{line_number} : em dash interdit par AGENTS.md")
+
+
 def check_skill(skill_dir: Path, report: Report) -> str | None:
     """Valide une skill et retourne son nom si le frontmatter est exploitable."""
     rel = skill_dir.relative_to(ROOT).as_posix()
@@ -131,44 +188,7 @@ def check_skill(skill_dir: Path, report: Report) -> str | None:
         report.error(f"{rel}/SKILL.md : {error}")
         return None
 
-    name = fields.get("name")
-    description = fields.get("description")
-
-    if not name:
-        report.error(f"{rel}/SKILL.md : champ name manquant")
-    else:
-        if name != skill_dir.name:
-            report.error(
-                f"{rel}/SKILL.md : name '{name}' différent du nom de dossier '{skill_dir.name}'"
-            )
-        if not NAME_PATTERN.match(name):
-            report.error(f"{rel}/SKILL.md : name '{name}' doit être en kebab-case minuscule")
-        if len(name) > NAME_MAX_LENGTH:
-            report.error(f"{rel}/SKILL.md : name de {len(name)} caractères, maximum {NAME_MAX_LENGTH}")
-
-    if not description:
-        report.error(f"{rel}/SKILL.md : champ description manquant")
-    else:
-        if len(description) < DESCRIPTION_MIN_LENGTH:
-            report.warn(
-                f"{rel}/SKILL.md : description de {len(description)} caractères, "
-                f"minimum conseillé {DESCRIPTION_MIN_LENGTH}"
-            )
-        if len(description) > DESCRIPTION_MAX_LENGTH:
-            report.error(
-                f"{rel}/SKILL.md : description de {len(description)} caractères, "
-                f"maximum {DESCRIPTION_MAX_LENGTH}"
-            )
-        if " : " in description and not raw_description_is_quoted(text):
-            report.error(
-                f"{rel}/SKILL.md : description contenant ' : ' sans guillemets, "
-                "YAML invalide, remplacer le deux-points ou entourer la valeur de guillemets"
-            )
-        if "utiliser quand" not in description.lower():
-            report.warn(
-                f"{rel}/SKILL.md : description sans condition de déclenchement, "
-                "ajouter une formulation du type 'Utiliser quand ...'"
-            )
+    name = check_name_and_description(f"{rel}/SKILL.md", skill_dir.name, "dossier", fields, text, report)
 
     # claude.ai et l'API Skills refusent toute autre clé de premier niveau ;
     # Claude Code, lui, l'ignorerait sans rien dire.
@@ -210,12 +230,31 @@ def check_skill(skill_dir: Path, report: Report) -> str | None:
                 )
 
     for markdown_file in sorted(skill_dir.rglob("*.md")):
-        content = markdown_file.read_text(encoding="utf-8")
-        for line_number, line in enumerate(content.splitlines(), start=1):
-            if EM_DASH in line:
-                location = markdown_file.relative_to(ROOT).as_posix()
-                report.error(f"{location}:{line_number} : em dash interdit par CLAUDE.md")
+        check_em_dash(markdown_file, report)
 
+    return name
+
+
+def check_agent(agent_file: Path, report: Report) -> str | None:
+    """Valide un agent de plugin et retourne son nom si le frontmatter est exploitable."""
+    rel = agent_file.relative_to(ROOT).as_posix()
+    text = agent_file.read_text(encoding="utf-8")
+    fields, error = parse_frontmatter(text)
+    if error:
+        report.error(f"{rel} : {error}")
+        return None
+
+    name = check_name_and_description(rel, agent_file.stem, "fichier", fields, text, report)
+
+    for key in fields:
+        if key in PLUGIN_AGENT_UNSUPPORTED_KEYS:
+            report.error(f"{rel} : clé '{key}' ignorée par Claude Code pour un agent de plugin")
+
+    body = text.split("---", 2)[-1].strip()
+    if not body:
+        report.error(f"{rel} : corps vide, l'agent n'a pas de consignes")
+
+    check_em_dash(agent_file, report)
     return name
 
 
@@ -231,11 +270,11 @@ def read_json(path: Path, report: Report) -> dict | None:
         return None
 
 
-def check_plugin(report: Report) -> None:
-    """La place de marché, le manifeste du plugin et leur version.
+def check_marketplace(plugin_dirs: list[Path], report: Report) -> None:
+    """La place de marché, le manifeste de chaque plugin et leur version.
 
     `claude plugin validate`, en CI, contrôle le schéma complet ; ici, ce qu'il
-    ne sait pas : la cohérence entre les deux fichiers et avec le CHANGELOG.
+    ne sait pas : la cohérence entre les fichiers et avec le CHANGELOG.
     """
     marketplace = read_json(MARKETPLACE_FILE, report)
     if marketplace is None:
@@ -243,6 +282,8 @@ def check_plugin(report: Report) -> None:
     entries = marketplace.get("plugins") or []
     if not marketplace.get("owner") or not entries:
         report.error(".claude-plugin/marketplace.json : owner et plugins sont obligatoires")
+
+    listed: set[Path] = set()
     for entry in entries:
         name, source = entry.get("name", ""), entry.get("source", "")
         if name.startswith(RESERVED_PLUGIN_PREFIXES):
@@ -250,31 +291,45 @@ def check_plugin(report: Report) -> None:
         if not source.startswith("./") or not (ROOT / source).is_dir():
             report.error(f"plugin '{name}' : source '{source}' introuvable dans le dépôt")
             continue
-        manifest = read_json(ROOT / source / ".claude-plugin" / "plugin.json", report)
+        plugin_dir = (ROOT / source).resolve()
+        listed.add(plugin_dir)
+        manifest = read_json(plugin_dir / ".claude-plugin" / "plugin.json", report)
         if manifest is None:
             continue
         if manifest.get("name") != name:
             report.error(f"plugin '{name}' : plugin.json porte le nom '{manifest.get('name')}'")
+
+        changelog = plugin_dir / "CHANGELOG.md"
+        if not changelog.exists():
+            changelog = CHANGELOG_FILE
+        changelog_rel = changelog.relative_to(ROOT).as_posix()
         version = manifest.get("version", "")
-        releases = RELEASE_HEADING.findall(CHANGELOG_FILE.read_text(encoding="utf-8"))
+        releases = RELEASE_HEADING.findall(changelog.read_text(encoding="utf-8"))
         if not VERSION_PATTERN.match(version):
             report.error(f"plugin '{name}' : version '{version}' non conforme au format x.y.z")
         elif not releases or releases[0] != version:
             report.error(
-                f"plugin '{name}' : version {version} différente de la dernière version du CHANGELOG "
-                f"({releases[0] if releases else 'aucune'}) ; les utilisateurs restent sur la "
-                "version du manifeste tant qu'elle ne change pas"
+                f"plugin '{name}' : version {version} différente de la dernière version de "
+                f"{changelog_rel} ({releases[0] if releases else 'aucune'}) ; les utilisateurs "
+                "restent sur la version du manifeste tant qu'elle ne change pas"
+            )
+
+    for plugin_dir in plugin_dirs:
+        if plugin_dir.resolve() not in listed:
+            report.error(
+                f"{plugin_dir.relative_to(ROOT).as_posix()} : plugin absent de "
+                ".claude-plugin/marketplace.json, personne ne pourra l'installer"
             )
 
 
-def check_evals(names: list[str], report: Report) -> None:
+def check_evals(evals_dir: Path, names: list[str], report: Report) -> None:
     """Chaque skill a un cas qui doit la déclencher et un cas voisin qui ne le doit pas.
 
     `claude plugin eval` les joue ; ici, on vérifie seulement qu'ils existent.
     """
     for name in names:
         for suffix, grader in (("oui", "declenche.md"), ("non", "ne-declenche-pas.md")):
-            case = EVALS_DIR / f"{name}-{suffix}"
+            case = evals_dir / f"{name}-{suffix}"
             location = case.relative_to(ROOT).as_posix()
             if not (case / "prompt.md").exists() or not (case / "graders" / grader).exists():
                 report.warn(f"{location} : cas de déclenchement absent, prompt.md et graders/{grader}")
@@ -308,32 +363,37 @@ def check_duplicate_inputs(skill_dirs: list[Path], report: Report) -> None:
             )
 
 
-def check_indexes(names: list[str], report: Report) -> None:
+def check_indexes(names: list[tuple[str, str]], report: Report) -> None:
+    """Le README et le guide d'usage citent chaque skill et chaque agent."""
     for index_file in INDEX_FILES:
         path = ROOT / index_file
         if not path.exists():
             report.warn(f"{index_file.as_posix()} : fichier absent, index non vérifié")
             continue
         content = path.read_text(encoding="utf-8")
-        for name in names:
+        for kind, name in names:
             if name not in content:
-                report.warn(f"{index_file.as_posix()} : skill '{name}' non référencée")
+                report.warn(f"{index_file.as_posix()} : {kind} '{name}' non référencé")
 
-    # La table d'orientation du routeur, que docs/conventions.md impose aussi de tenir à jour.
-    router = SKILLS_DIR / ROUTER_NAME / "SKILL.md"
-    if router.exists():
-        content = router.read_text(encoding="utf-8")
-        location = router.relative_to(ROOT).as_posix()
-        for name in names:
-            if name != ROUTER_NAME and f"`{name}`" not in content:
-                report.warn(f"{location} : skill '{name}' absente de la table d'orientation")
+
+def check_router(plugin_dir: Path, names: list[str], report: Report) -> None:
+    """La table d'orientation du routeur, que docs/conventions.md impose de tenir à jour."""
+    router_name = plugin_dir.name + ROUTER_SUFFIX
+    router = plugin_dir / "skills" / router_name / "SKILL.md"
+    if not router.exists():
+        return
+    content = router.read_text(encoding="utf-8")
+    location = router.relative_to(ROOT).as_posix()
+    for name in names:
+        if name != router_name and f"`{name}`" not in content:
+            report.warn(f"{location} : skill '{name}' absente de la table d'orientation")
 
 
 def main() -> int:
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
-    parser = argparse.ArgumentParser(description="Valide la structure des skills.")
+    parser = argparse.ArgumentParser(description="Valide la structure des plugins.")
     parser.add_argument(
         "--strict",
         action="store_true",
@@ -343,25 +403,46 @@ def main() -> int:
 
     report = Report()
 
-    if not SKILLS_DIR.is_dir():
-        print(f"Dossier introuvable : {SKILLS_DIR}")
+    plugin_dirs = sorted(
+        p for p in PLUGINS_DIR.iterdir() if (p / ".claude-plugin" / "plugin.json").is_file()
+    ) if PLUGINS_DIR.is_dir() else []
+    if not plugin_dirs:
+        print(f"Aucun plugin trouvé dans {PLUGINS_DIR}")
         return 1
 
-    skill_dirs = sorted(p for p in SKILLS_DIR.iterdir() if p.is_dir())
-    if not skill_dirs:
-        print(f"Aucune skill trouvée dans {SKILLS_DIR}")
-        return 1
+    all_skill_dirs: list[Path] = []
+    indexed: list[tuple[str, str]] = []
+    agent_count = 0
 
-    names: list[str] = []
-    for skill_dir in skill_dirs:
-        name = check_skill(skill_dir, report)
-        if name:
-            names.append(name)
+    for plugin_dir in plugin_dirs:
+        rel = plugin_dir.relative_to(ROOT).as_posix()
+        skills_dir = plugin_dir / "skills"
+        agents_dir = plugin_dir / "agents"
+        skill_dirs = sorted(p for p in skills_dir.iterdir() if p.is_dir()) if skills_dir.is_dir() else []
+        agent_files = sorted(agents_dir.glob("*.md")) if agents_dir.is_dir() else []
+        if not skill_dirs and not agent_files:
+            report.error(f"{rel} : ni skill dans skills/, ni agent dans agents/")
+            continue
 
-    check_plugin(report)
-    check_duplicate_inputs(skill_dirs, report)
-    check_indexes(names, report)
-    check_evals(names, report)
+        skill_names: list[str] = []
+        for skill_dir in skill_dirs:
+            name = check_skill(skill_dir, report)
+            if name:
+                skill_names.append(name)
+        for agent_file in agent_files:
+            name = check_agent(agent_file, report)
+            if name:
+                indexed.append(("agent", name))
+
+        all_skill_dirs.extend(skill_dirs)
+        agent_count += len(agent_files)
+        indexed.extend(("skill", name) for name in skill_names)
+        check_router(plugin_dir, skill_names, report)
+        check_evals(plugin_dir / "evals", skill_names, report)
+
+    check_marketplace(plugin_dirs, report)
+    check_duplicate_inputs(all_skill_dirs, report)
+    check_indexes(indexed, report)
 
     for warning in report.warnings:
         print(f"WARN  {warning}")
@@ -369,7 +450,7 @@ def main() -> int:
         print(f"ERROR {error}")
 
     print(
-        f"\n{len(skill_dirs)} skills analysées, "
+        f"\n{len(plugin_dirs)} plugins, {len(all_skill_dirs)} skills et {agent_count} agents analysés, "
         f"{len(report.errors)} erreurs, {len(report.warnings)} avertissements"
     )
 

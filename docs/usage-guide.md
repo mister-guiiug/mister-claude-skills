@@ -48,6 +48,21 @@ Passer par `career-skills-router`. Il pose deux questions au maximum, identifie 
 - `executive-personal-branding` définit le positionnement, les autres skills le déclinent sur un support.
 - `it-architect-career-advisor` traite la trajectoire, `interview-preparation` et `salary-negotiation` traitent une opportunité identifiée.
 
+## Lancer un produit, plugin business-team
+
+| Besoin | Agent ou skill |
+| --- | --- |
+| Faits sur le marché, les concurrents, les prix publics, avec sources | `enqueteur` |
+| Prix de vente, coût de revient, marge, seuil de rentabilité | `comptable` |
+| Fiche produit, post, newsletter | `redacteur` |
+| Tout ce qui peut faire échouer le projet | `avocat-du-diable` |
+| Les quatre à la suite, en un seul dossier | `lancement-produit` |
+
+- Un agent sollicité hors de son métier le dit et ne livre que sa partie. Pour une tâche, appeler l’agent ; pour un dossier complet, la skill.
+- `redacteur` n’invente aucun chiffre : lui donner les résultats de `enqueteur` et le prix du `comptable`.
+- `avocat-du-diable` ne propose pas de solution, c’est voulu.
+- `business-team` ne recoupe pas `career-skills` : `executive-content-writer` rédige un contenu professionnel au ton sobre, `redacteur` une fiche produit ou un post commercial au tutoiement.
+
 ## Bonnes pratiques
 
 1. Fournir des faits bruts, y compris ce qui n’a pas fonctionné.

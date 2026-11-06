@@ -16,13 +16,19 @@ plugins/
         references/example-output.md
         templates/prompt-template.md
     evals/                             tests de déclenchement
+  business-team/
+    .claude-plugin/plugin.json
+    CHANGELOG.md                       historique propre au plugin
+    agents/                            les 4 sous-agents
+    skills/lancement-produit/          enchaîne les 4 agents
+    evals/
 docs/
 examples/
 scripts/
 .github/workflows/
 ```
 
-19 skills, chacune autonome et copiable seule.
+`career-skills` : 19 skills, chacune autonome et copiable seule. `business-team` : 4 sous-agents et 1 skill, voir [Plugin business-team](#plugin-business-team).
 
 ## Installation
 
@@ -144,6 +150,29 @@ Il faut Claude Code 2.1.269 ou plus. Chaque cas est joué trois fois, chaque foi
 | `technology-watch`            | Note de veille, radar technologique                |
 | `ai-governance`               | Cadre de gouvernance IA, rôles, risques, contrôles |
 
+## Plugin business-team
+
+Une équipe de quatre sous-agents pour lancer un produit. Chacun ne fait que son métier : ses consignes lui interdisent le reste, et ses outils le limitent. Seul l’Enquêteur accède au web, l’Avocat du diable ne peut rien modifier.
+
+```text
+/plugin install business-team@mister-guiiug
+```
+
+| Agent                               | Métier                                                     | Outils                               |
+| ----------------------------------- | ---------------------------------------------------------- | ------------------------------------ |
+| `enqueteur`                         | Recherche web, chaque fait sourcé                          | WebSearch, WebFetch, lecture         |
+| `redacteur`                         | Fiches produit et posts, tutoiement, phrases courtes       | Lecture, écriture                    |
+| `comptable`                         | Prix, coûts, marges, toujours en tableau                   | Lecture, écriture, Bash pour calculer |
+| `avocat-du-diable`                  | Liste sans ménagement ce qui peut échouer                  | Lecture seule                        |
+
+| Skill               | Usage                                                                         |
+| ------------------- | ----------------------------------------------------------------------------- |
+| `lancement-produit` | Enchaîne Enquêteur, Comptable, Rédacteur, Avocat du diable, et assemble le tout |
+
+Claude choisit l’agent d’après sa description. Pour en appeler un explicitement : `Demande à business-team:comptable de calculer ma marge`. Pour toute l’équipe : `/business-team:lancement-produit`.
+
+Sans plugin, copier `plugins/business-team/agents/*.md` dans `~/.claude/agents/` ou dans le `.claude/agents/` d’un projet, et le dossier `skills/lancement-produit` dans `.claude/skills/`. Les agents s’appellent alors sans préfixe, `enqueteur` au lieu de `business-team:enqueteur` : adapter les noms dans la skill. Les scripts d’installation ne copient que `career-skills`.
+
 ## Tooling
 
 | Commande                                                       | Usage                                                                                  |
@@ -153,6 +182,7 @@ Il faut Claude Code 2.1.269 ou plus. Chaque cas est joué trois fois, chaque foi
 | `python scripts/new_skill.py <nom-kebab-case>`                 | Crée le squelette complet d’une nouvelle skill                                         |
 | `claude plugin validate . --strict`                            | Valide la place de marché, rejoué en CI                                                |
 | `claude plugin validate plugins/career-skills --strict`        | Valide le plugin et ses skills, rejoué en CI                                           |
+| `claude plugin validate plugins/business-team --strict`        | Valide le plugin, ses agents et sa skill, rejoué en CI                                 |
 | `bash scripts/install.sh`                                      | Installe les skills dans `~/.claude/skills`                                            |
 | `powershell -ExecutionPolicy Bypass -File scripts/install.ps1` | Installe les skills sous Windows                                                       |
 

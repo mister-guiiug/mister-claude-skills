@@ -77,6 +77,27 @@ Chaque skill fournit un `references/quality-checklist.md` spécifique à son dom
 - Toujours proposer une version directement copiable.
 - Garder chaque skill autonome, ne pas créer de dépendance vers un fichier hors de son dossier, une skill doit rester copiable seule dans `~/.claude/skills`.
 
+## Agents de plugin
+
+Un plugin peut fournir des sous-agents, un fichier par agent dans `plugins/<plugin>/agents/<nom>.md`. Exemple : `business-team`.
+
+```yaml
+---
+name: mon-agent
+description: Fait X. Utiliser quand l’utilisateur demande Y. Ne fait pas Z.
+tools: Read, Glob, Grep
+---
+```
+
+Règles :
+
+- `name` en kebab-case minuscule, identique au nom du fichier sans `.md`.
+- `description` en une seule ligne, avec la condition de déclenchement. Dire aussi ce que l’agent ne fait pas, pour que Claude ne lui confie pas une tâche voisine.
+- `tools` limite l’agent aux outils de son métier. Sans `tools`, il hérite de tous les outils.
+- `hooks`, `mcpServers` et `permissionMode` sont ignorés pour un agent de plugin, le validateur en fait une erreur.
+- Le corps contient les consignes de l’agent, avec une section sur ce qu’il ne fait pas.
+- Un plugin qui a son propre `CHANGELOG.md` y suit sa version, sinon il suit celui de la racine.
+
 ## Avant de committer
 
 ```bash
