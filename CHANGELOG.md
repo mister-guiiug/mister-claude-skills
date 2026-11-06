@@ -8,13 +8,13 @@ Ce fichier suit la version de `career-skills`. Le plugin `business-team` a son p
 
 ### Ajouté
 
-- Deuxième plugin de la place de marché, `business-team` 0.1.0 : quatre sous-agents (`enqueteur`, `redacteur`, `comptable`, `avocat-du-diable`) et la skill `lancement-produit` qui les enchaîne. `/plugin install business-team@mister-guiiug`.
+- Deuxième plugin de la place de marché, `business-team` : en 0.1.0, quatre sous-agents (`enqueteur`, `redacteur`, `comptable`, `avocat-du-diable`) et la skill `lancement-produit` ; en 0.2.0, l’agent `stratege` et la skill `etude-opportunite`, pour décider de démarrer ou non une activité. `/plugin install business-team@mister-guiiug`.
 - CI : `claude plugin validate --strict` sur `plugins/business-team`.
 
 ### Modifié
 
 - Le validateur parcourt tous les plugins de `plugins/` au lieu du seul `career-skills`. Il contrôle aussi les agents (frontmatter, nom identique au fichier, condition de déclenchement, clés ignorées pour un agent de plugin, em dash) et signale un plugin absent de `marketplace.json`. Un plugin qui a son propre `CHANGELOG.md` y suit sa version, les autres suivent celui de la racine. Le routeur vérifié est la skill `<plugin>-router`, s’il existe.
-- `AGENTS.md` présente les deux plugins et note l’exception de ton des agents `redacteur` et `avocat-du-diable`.
+- `AGENTS.md` présente les deux plugins et note l’exception de ton des agents `redacteur`, `avocat-du-diable` et `stratege`.
 
 ## [0.5.0] - 2026-10-28
 

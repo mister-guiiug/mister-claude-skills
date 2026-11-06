@@ -48,19 +48,27 @@ Passer par `career-skills-router`. Il pose deux questions au maximum, identifie 
 - `executive-personal-branding` définit le positionnement, les autres skills le déclinent sur un support.
 - `it-architect-career-advisor` traite la trajectoire, `interview-preparation` et `salary-negotiation` traitent une opportunité identifiée.
 
-## Lancer un produit, plugin business-team
+## Étudier et lancer une activité, plugin business-team
 
 | Besoin | Agent ou skill |
 | --- | --- |
 | Faits sur le marché, les concurrents, les prix publics, avec sources | `enqueteur` |
-| Prix de vente, coût de revient, marge, seuil de rentabilité | `comptable` |
-| Fiche produit, post, newsletter | `redacteur` |
+| Vérifier un brainstorm ou une étude faits avec une autre IA | `enqueteur` |
+| Prix de vente, marge, seuil de rentabilité, scénarios, sensibilité | `comptable` |
 | Tout ce qui peut faire échouer le projet | `avocat-du-diable` |
-| Les quatre à la suite, en un seul dossier | `lancement-produit` |
+| Parades, tests, critères d’arrêt, verdict sur un dossier réuni | `stratege` |
+| Fiche produit, post, newsletter, page de test de la demande | `redacteur` |
+| Dois-je démarrer, renforcer ou abandonner cette activité ? | `etude-opportunite` |
+| C’est décidé, préparer prix, fiche produit, posts et risques | `lancement-produit` |
 
-- Un agent sollicité hors de son métier le dit et ne livre que sa partie. Pour une tâche, appeler l’agent ; pour un dossier complet, la skill.
+| Objectif | Enchaînement |
+| --- | --- |
+| De l’idée au lancement | `etude-opportunite`, puis si le verdict le permet et après les tests, `lancement-produit` |
+
+- Un agent sollicité hors de son métier le dit et ne livre que sa partie. Pour une tâche, appeler l’agent ; pour un dossier complet, une skill.
+- `etude-opportunite` traite un brainstorm comme une liste d’hypothèses : l’enregistrer dans un fichier et le citer avec `@fichier`. Donner aussi ses critères de décision (budget, temps, revenu visé), sans eux le Stratège ne peut pas trancher pour toi.
 - `redacteur` n’invente aucun chiffre : lui donner les résultats de `enqueteur` et le prix du `comptable`.
-- `avocat-du-diable` ne propose pas de solution, c’est voulu.
+- `avocat-du-diable` ne propose pas de solution, c’est voulu. Les parades viennent du `stratege`.
 - `business-team` ne recoupe pas `career-skills` : `executive-content-writer` rédige un contenu professionnel au ton sobre, `redacteur` une fiche produit ou un post commercial au tutoiement.
 
 ## Bonnes pratiques

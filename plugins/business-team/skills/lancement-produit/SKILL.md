@@ -2,7 +2,7 @@
 name: lancement-produit
 description: Enchaîne les 4 agents de l’équipe business, Enquêteur, Comptable, Rédacteur puis Avocat du diable, pour préparer le lancement d’un produit de la recherche de marché à la fiche produit. Utiliser quand l’utilisateur veut étudier, chiffrer, présenter et éprouver un produit ou une offre en une seule demande, ou demande de faire travailler toute l’équipe.
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   updated: "2026-11-07"
 ---
 
@@ -39,7 +39,7 @@ Utiliser cette skill lorsque l’utilisateur veut :
 - faire travailler toute l’équipe business sur un même sujet ;
 - obtenir recherche, prix, fiche produit et risques dans un seul livrable.
 
-Pour une seule tâche, appeler directement l’agent concerné plutôt que cette skill.
+Pour une seule tâche, appeler directement l’agent concerné plutôt que cette skill. Si l’utilisateur se demande encore s’il doit se lancer, utiliser `etude-opportunite`.
 
 ## Méthode
 

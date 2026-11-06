@@ -3,7 +3,7 @@
   "owner": {
     "name": "mister-guiiug"
   },
-  "description": "Plugins Claude de mister-guiiug : carrière et personal branding d’un profil IT senior, équipe d’agents pour lancer un produit.",
+  "description": "Plugins Claude de mister-guiiug : carrière et personal branding d’un profil IT senior, équipe d’agents pour étudier et lancer une activité.",
   "plugins": [
     {
       "name": "career-skills",
@@ -13,7 +13,7 @@
     {
       "name": "business-team",
       "source": "./plugins/business-team",
-      "description": "4 sous-agents et 1 skill pour lancer un produit : recherche sourcée, prix et marges, fiches produit et posts, liste des risques."
+      "description": "5 sous-agents et 2 skills pour décider de démarrer une activité puis la lancer : recherche sourcée, chiffres, risques, verdict, fiches produit et posts."
     }
   ]
 }
