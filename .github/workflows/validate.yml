@@ -23,7 +23,7 @@ jobs:
         run: python scripts/validate_structure.py --strict
 
   plugin:
-    # Le schéma complet de la place de marché et du plugin, tel que Claude Code
+    # Le schéma complet de la place de marché et des plugins, tel que Claude Code
     # le lit. Le validateur Python ne contrôle que leur cohérence entre eux.
     runs-on: ubuntu-latest
     steps:
@@ -36,7 +36,8 @@ jobs:
       - name: Installer Claude Code
         run: npm install -g @anthropic-ai/claude-code
 
-      - name: Valider la place de marché et le plugin
+      - name: Valider la place de marché et les plugins
         run: |
           claude plugin validate . --strict
           claude plugin validate plugins/career-skills --strict
+          claude plugin validate plugins/business-team --strict

@@ -3,12 +3,17 @@
   "owner": {
     "name": "mister-guiiug"
   },
-  "description": "Skills Claude pour le CV, LinkedIn et le personal branding d’un profil IT senior.",
+  "description": "Plugins Claude de mister-guiiug : carrière et personal branding d’un profil IT senior, équipe d’agents pour lancer un produit.",
   "plugins": [
     {
       "name": "career-skills",
       "source": "./plugins/career-skills",
       "description": "19 skills : CV, profil LinkedIn, entretiens, prises de parole, veille et gouvernance IA."
+    },
+    {
+      "name": "business-team",
+      "source": "./plugins/business-team",
+      "description": "4 sous-agents et 1 skill pour lancer un produit : recherche sourcée, prix et marges, fiches produit et posts, liste des risques."
     }
   ]
 }
