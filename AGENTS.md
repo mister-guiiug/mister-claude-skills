@@ -3,7 +3,7 @@
 Ce dépôt est une place de marché de deux plugins Claude Code :
 
 - `career-skills` : skills dédiées à l’optimisation LinkedIn, CV, personal branding et contenu professionnel.
-- `business-team` : quatre sous-agents et une skill pour lancer un produit.
+- `business-team` : cinq sous-agents et deux skills pour décider de démarrer une activité, puis la lancer.
 
 ## Règles générales
 
@@ -14,12 +14,12 @@ Ce dépôt est une place de marché de deux plugins Claude Code :
 - Préférer un ton professionnel, sobre et factuel.
 - Ne pas utiliser d’em dash.
 
-Exception voulue : l’agent `redacteur` de `business-team` écrit au tutoiement et en phrases courtes, et l’agent `avocat-du-diable` s’exprime sans ménagement. Ne pas les ramener au ton professionnel et sobre.
+Exception voulue : l’agent `redacteur` de `business-team` écrit au tutoiement et en phrases courtes, les agents `avocat-du-diable` et `stratege` s’expriment sans ménagement. Ne pas les ramener au ton professionnel et sobre.
 
 ## Usage recommandé
 
 Quand une demande concerne LinkedIn, CV, carrière, personal branding, conférence ou contenu professionnel, sélectionner la skill la plus spécifique dans `plugins/career-skills/skills`.
 
-Quand une demande concerne le lancement d’un produit, confier chaque tâche à l’agent de `plugins/business-team/agents` dont c’est le métier, ou passer par la skill `lancement-produit` pour les enchaîner.
+Quand une demande concerne l’opportunité ou le lancement d’une activité, confier chaque tâche à l’agent de `plugins/business-team/agents` dont c’est le métier, ou passer par `etude-opportunite` pour décider et `lancement-produit` pour lancer.
 
 Pour les avoir en travaillant dans ce dépôt, installer les plugins depuis la copie locale : `/plugin marketplace add ./`, puis `/plugin install career-skills@mister-guiiug` et `/plugin install business-team@mister-guiiug`.

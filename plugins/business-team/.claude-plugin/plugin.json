@@ -1,7 +1,7 @@
 {
   "name": "business-team",
-  "description": "Équipe de 4 sous-agents pour lancer un produit : Enquêteur, Rédacteur, Comptable, Avocat du diable. Chacun ne fait que son métier.",
-  "version": "0.1.0",
+  "description": "Équipe de 5 sous-agents pour étudier puis lancer une activité : Enquêteur, Comptable, Avocat du diable, Stratège, Rédacteur. Chacun ne fait que son métier.",
+  "version": "0.2.0",
   "author": {
     "name": "mister-guiiug"
   }
